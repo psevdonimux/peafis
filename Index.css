@@ -1,0 +1,165 @@
+#one {
+  position: absolute;
+  margin: auto;
+  left: 0px;
+  right: 0px;
+  top: -28%;
+  bottom: 0px;
+  width: 12.5%;
+  height: 15%;
+  font-size: 125%;
+  opacity: 0;
+}
+#searching {
+ position: absolute;
+ margin: auto;
+ left: 0px;
+ right: 0px;
+ top: 0px;
+ bottom: 0px;
+ width: 50%;
+ height: 12.5%;
+ font-size: 125%;
+ border-radius: 50px;
+ border: 5px solid;
+ background-color: transparent;
+}
+#mode { 
+ font-size: 65%;
+ border-radius: 20px;
+}
+#settings {
+ position: absolute; 
+ margin: auto;
+ top: 3.5%;
+ left: 5%;
+ border-radius: 20px;
+ width: 10%;
+ height: 10%;
+}
+#title{
+  margin-top: -1%;
+}
+#msg{
+ margin-top: -13%;
+ font-size: 80%;
+}
+#msg2{
+ margin: auto;
+ font-size: 80%;
+}
+#msg3{
+ margin-left: 60%; 
+ font-size: 80%;
+ margin-top: -4.7%;
+}
+#optionsMenu{
+ width: 8%;
+ height: 6%;
+ border-radius: 20px;
+ font-size: 65%;
+ text-align: center;
+}
+#msg4{
+ margin-left: 65%; 
+ font-size: 80%;
+}
+#chatgpt{
+ border-radius: 20px;
+ margin-right: 32%;  
+ font-size: 55%;
+}
+#imgc{
+ position: absolute;
+ margin: auto;
+ left: 0px;
+ right: 0px;
+ bottom: 0px;
+ top: 40%;
+}
+#fileInput{
+ display: none;
+}
+#msg5{
+ margin-left: 65%; 
+ font-size: 80%;
+}
+#upload{
+ border-radius: 20px;
+ font-size: 55%;
+}
+@media(orientation: portrait) {
+ #one {
+  top: -9.5%;
+  width: 15%;
+  height: 4.5%;
+ }
+ #searching {
+  width: 80%;
+  height: 5%;
+  font-size: 200%;
+  border: 10px solid;
+ }
+ #settings {
+  width: 20%;
+  height: 4%;
+  font-size: 175%;
+  border-radius: 40px;
+ }
+ #title{
+  font-size: 450%;
+ }
+ #msg{
+  margin-top: -10%;
+  font-size: 190%;
+ }
+ #transparent{
+  margin-top: 3%;
+  width: 49%;
+ }
+ #msg2{  
+  font-size: 190%;
+ }
+ #mode {
+  margin-right: 47%; 
+  width: 28%;
+  height: 14%;
+  font-size: 120%;
+  border-radius: 40px;
+ }
+ #msg3{
+  margin-left: 65%; 
+  font-size: 190%;
+ }
+ #optionsMenu{
+  font-size: 120%;
+  border-radius: 30px;
+ }
+ #msg4{
+  margin-top: 2%;
+  margin-left: 65%; 
+  font-size: 190%;
+ }
+ #chatgpt{
+  margin-right: 18%;  
+  font-size: 120%;
+  width: 28%;
+  height: 14%;
+  border-radius: 30px;
+ } 
+ #imgc{
+  top: 15%;
+ }
+ #msg5{
+  margin-top: 2%;
+  margin-left: 65%; 
+  font-size: 190%;
+ }
+ #upload{
+  margin-right: 18%;  
+  font-size: 120%;
+  width: 28%;
+  height: 14%;
+  border-radius: 30px;
+ } 
+}
