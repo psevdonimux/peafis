@@ -186,7 +186,10 @@ modeChatGpt();
 activate();
 mode();
 function clickOn(){
-var split = prompt().split(' ');
+var prompts = prompt();
+var split = prompts.split(' ');
+let pairs = prompts.split(', ');
+var pairs2 = prompts.replace('delete ', '').split(', ');
 var info = JSON.parse(localStorage.getItem('info') ?? JSON.stringify({}));
 var ls = info[split[0]];
 if(split[0] == 'image' && split[1] != null){
@@ -202,15 +205,44 @@ for(let key in info){
 }
  alert(arr.join('\n'));
 }
-else if(split[0] == 'delete' && split[1] != null && info[split[1]] != null){
+else if(split[0] == 'copy'){
+var arr = [];
+var i = 0;
+for(let key in info){
+ arr[i] = key + ' ' + info[key];
+ i++;
+}
+ alert(arr.join(', '));
+ navigator.clipboard.writeText(arr.join(', ')); 
+}
+else if(split[0] == 'delete' && split.length >= 2){
+ if(pairs2.length > 0){
+pairs2.forEach(pair2 => {
+  if (info[pair2] != null) {
+    delete info[pair2];
+  }
+});
+}
+else if(info[split[1]] != null) {
  delete info[split[1]];
+ }
  localStorage.setItem('info', JSON.stringify(info));
 }
 else if(split[0] == 'clearAll'){
  localStorage.removeItem('info');
 }
-else if(split.length == 2){
+else if(split.length >= 2){ 
+ if(pairs.length > 1){
+pairs.forEach(pair => {
+  let splits = pair.split(' ');
+  if (splits.length == 2) {
+    info[splits[0]] = splits[1];
+  }
+});
+}
+else{
  info[split[0]] = split[1];
+ }
  localStorage.setItem('info', JSON.stringify(info));
 }
 else if(ls != null){
