@@ -1,4 +1,4 @@
-![](images/icon.webp)
+![](image/icon.webp)
 # Peafis - Поисковая система
 **p** - practical (практичный)
 
