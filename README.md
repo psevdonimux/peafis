@@ -1,5 +1,5 @@
 ![](image/icon.webp)
-# Peafis - Поисковая система
+# Peafis - Поисковик будущего
 **p** - practical (практичный)
 
 **e** - evolving (развивающийся)
