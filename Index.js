@@ -33,11 +33,12 @@ function modeChatGpt(){
 }
 function modeWeather(){
  var weatherId = localStorage.getItem('weatherId');
- if(weatherId != ''){
+ if(!isNaN(weatherId)){
   elements.weather.src = 'https://info.weather.yandex.net/' + weatherId + '/3.png';
+  elements.weather.style.display = 'block';
  }
  else{
-  elements.weather.style.cssText = `transform: scale(0)`;
+  elements.weather.style.display = 'none';
  } 
 }
 function setOpacities(ids, value){ 
