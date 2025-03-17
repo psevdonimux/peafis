@@ -32,14 +32,15 @@ function modeChatGpt(){
  elements.imgc.style.cssText = localStorage.getItem('chatgpt') == 'true' ? '' : `transform: scale(0)`;
 }
 function modeWeather(){
- var weatherId = localStorage.getItem('weatherId');
- if(!isNaN(weatherId)){
-  elements.weather.src = 'https://info.weather.yandex.net/' + weatherId + '/3.png';
-  elements.weather.style.display = 'block';
- }
- else{
-  elements.weather.style.display = 'none';
- } 
+  var weatherId = localStorage.getItem('weatherId');
+  var weatherIdNumber = parseInt(weatherId, 10);
+  if(!isNaN(weatherIdNumber)){
+    elements.weather.src = 'https://info.weather.yandex.net/' + weatherIdNumber + '/3.png';
+    elements.weather.style.display = 'block';
+  } 
+  else{
+    elements.weather.style.display = 'none';
+  }
 }
 function setOpacities(ids, value){ 
  ids.forEach(id => document.getElementById(id).style.opacity = value);
