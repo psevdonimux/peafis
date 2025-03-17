@@ -2,41 +2,45 @@
 <title>Peafis - Поисковик будущего</title>
 <meta name="viewport" content="user-scalable=no">
 <script src="Design.js"></script>
-<link rel="stylesheet" href="Index.css">
 <link rel="icon" href="image/icon.webp">
 <form onsubmit="search(event, this.searching.value);">
  <input name="searching" id="searching">
 </form>
-<button id="one" onclick="clickOn()">ТЫК</button>
+<button id="one">ТЫК</button>
 <button id="settings">Настройки</button>
 <div id="modal">
 <div id="content">
 <h1 id="title">Настройки</h1>
 <input type="range" id="transparent" min="0" max="10" /> 
-<p id="msg">Прозрачность кнопок:<p>
-<div id="column">
-<p id="msg2">Тема:<p>
-<button id="mode" onclick="design.updateMode(); mode();"></button> 
+<p id="msg" class="fontSizeMsg">Прозрачность кнопок:</p>
+<div id="column" class="column">
+<p id="msg2" class="fontSizeMsg">Тема:</p>
+<button id="mode" class="sizeButton" onclick="design.updateMode(); mode();"></button> 
 </div>
-<div id="column2">
-<p id="msg3">Поисковик:<p>
-<select id="optionsMenu">
+<div id="column2" class="column">
+<p id="msg3" class="fontSizeMsg">Поисковик:</p>
+<select id="optionsMenu" class="sizeButton">
  <option value="https://yandex.eu/search/touch/?text=">Yandex</option>
  <option value="https://www.google.com/search?q=">Google</option>
  <option value="https://www.bing.com/search?q=">Bing</option>
 </select>
 </div>
-<div id="column3">
-<p id="msg4">ChatGPT:<p>
-<button id="chatgpt"></button> 
+<div id="column3" class="column">
+<p id="msg4" class="fontSizeMsg">ChatGPT:</p>
+<button id="chatgpt" class="sizeButton"></button> 
 </div>
-<div id="column4">
-<p id="msg5">Обои:<p>
+<div id="column4" class="column">
+<p id="msg5" class="fontSizeMsg">Обои:</p>
 <input id="fileInput" type="file" accept="image/*">
-<button id="upload">Загрузить</button>
+<button id="upload" class="sizeButton">Загрузить</button>
+</div>
+<img id="delete" src="image/delete.webp">
 </div>
 </div>
-</div>
+<a href="https://dev.yqcloud.top/#/chat/9999999999999">
 <img id="imgc">
+</a>
+<img id="weather">
 <script src="Index.js"></script>
+<link rel="stylesheet" href="Index.css">
 </html>

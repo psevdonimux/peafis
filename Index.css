@@ -1,165 +1,258 @@
+.column{
+ position: absolute;
+ display: grid;
+ grid-template-columns: auto auto; 
+ align-items: center; 
+}
+.fontSizeMsg{
+ font-size: 1.3vw;
+}
+#column{
+ top: 41.8vh;
+ left: 44.07vw;
+}
+#column2{
+ top: 52.67vh;
+ left: 44.00vw;
+}
+#column3{
+ top: 62.37vh;
+ left: 44.1vw;
+}
+#column4{
+ top: 72.93vh;
+ left: 44.3vw;
+}
+.sizeButton{
+ width: 12.5vh;
+ height: 2.5vw;
+ font-size: 0.9vw;
+ border-radius: 20px;
+}
 #one {
   position: absolute;
   margin: auto;
-  left: 0px;
-  right: 0px;
-  top: -28%;
-  bottom: 0px;
-  width: 12.5%;
-  height: 15%;
-  font-size: 125%;
+  left: 0;
+  right: 0;
+  top: -12.3vw;
+  bottom: 0;
+  width: 15.5vh;
+  height: 6.6vw;  
   opacity: 0;
+  z-index: 1;
 }
 #searching {
  position: absolute;
  margin: auto;
- left: 0px;
- right: 0px;
- top: 0px;
- bottom: 0px;
- width: 50%;
- height: 12.5%;
- font-size: 125%;
+ left: 0;
+ right: 0;
+ top: 0;
+ bottom: 0;
+ width: 111vh;
+ height: 5.5vw;
+ font-size: 2vw;
  border-radius: 50px;
  border: 5px solid;
  background-color: transparent;
 }
 #mode { 
- font-size: 65%;
- border-radius: 20px;
+ margin-left: 1vh;  
 }
 #settings {
  position: absolute; 
  margin: auto;
- top: 3.5%;
- left: 5%;
+ top: 2.42vw;
+ left: 5.46vh;
  border-radius: 20px;
- width: 10%;
- height: 10%;
+ width: 20vh;
+ height: 4vw;
+ font-size: 1.2vw;
 }
 #title{
-  margin-top: -1%;
+ position: absolute;
+ margin: auto;
+ top: -10.5vw;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ width: 30vh;
+ height: 15vw;
+ font-size: 3vw;
 }
 #msg{
- margin-top: -13%;
- font-size: 80%;
-}
-#msg2{
+ position: absolute;
+ top: 30.87vh;
+ left: 44.16vw;
  margin: auto;
- font-size: 80%;
 }
 #msg3{
- margin-left: 60%; 
- font-size: 80%;
- margin-top: -4.7%;
+ margin-top: 1.2vw;    
 }
 #optionsMenu{
- width: 8%;
- height: 6%;
- border-radius: 20px;
- font-size: 65%;
  text-align: center;
-}
-#msg4{
- margin-left: 65%; 
- font-size: 80%;
+ margin-left: 1.2vh;
 }
 #chatgpt{
- border-radius: 20px;
- margin-right: 32%;  
- font-size: 55%;
+ margin-left: 0.9vh;
 }
 #imgc{
  position: absolute;
  margin: auto;
- left: 0px;
- right: 0px;
- bottom: 0px;
- top: 40%;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ top: 17.2vw;
+ height: 10vw;
+ aspect-ratio: 1 / 1;
+ border-radius: 100%;
 }
 #fileInput{
  display: none;
 }
-#msg5{
- margin-left: 65%; 
- font-size: 80%;
-}
 #upload{
- border-radius: 20px;
- font-size: 55%;
+ margin-left: 0.8vh;
 }
-@media(orientation: portrait) {
+#content{
+ width: 68vh;
+ height: 27vw;
+ margin-top: 17vh;
+ margin-left: 33.5vw;
+ border-radius: 20px;
+}
+#transparent{
+ position: absolute;
+ transform: scale(1);
+ width: 32vh;
+ filter: invert(1) hue-rotate(70deg) brightness(250%);
+ top: 36.23vh;
+ left: 44.26vw;
+}
+#close{
+ font-size: 3vw;
+}
+#delete{ 
+ position: absolute;
+ height: 2vw;
+ aspect-ratio: 1 / 1;
+ top: 74.8vh;
+ left: 53.7vw;
+}
+#weather{
+ position: absolute;
+ filter: invert(1) hue-rotate(190deg) brightness(250%);
+ clip-path: inset(2vw 0px 3vw 0px);
+ margin: auto;
+ left: 0;
+ right: 0; 
+ bottom: 0;
+ height: 13vw;
+ width: 20vh;
+ top: -13vw; 
+}
+@media(orientation: portrait){
+.fontSizeMsg{
+ font-size: 1.4vh;
+}
+#column{
+ top: 43.6vh;
+ left: 34.01vw;
+}
+#column2{
+ top: 48.19vh;
+ left: 34vw;
+}
+#column3{
+ top: 53.2vh;
+ left: 34vw;
+}
+#column4{
+ top: 58.2vh;
+ left: 34.07vw;
+}
+ .sizeButton{
+  width: 12.5vw;
+  height: 2.5vh;
+  font-size: 0.9vh;
+  border-radius: 40px; 
+ }
  #one {
-  top: -9.5%;
-  width: 15%;
-  height: 4.5%;
+  top: -9.5vh;
+  width: 13vw;
+  height: 4.4vh;
  }
  #searching {
-  width: 80%;
-  height: 5%;
-  font-size: 200%;
+  width: 80vw;
+  height: 5vh;
+  font-size: 2vh;
   border: 10px solid;
  }
  #settings {
-  width: 20%;
-  height: 4%;
-  font-size: 175%;
+  width: 20vw;
+  height: 4vh;
+  font-size: 1.2vh;
   border-radius: 40px;
+  top: 2.42vh;
+  left: 5.46vw;
  }
  #title{
-  font-size: 450%;
+  top: -15vh;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 30vw;
+  height: 15vh;
+  font-size: 3vh;
  }
  #msg{
-  margin-top: -10%;
-  font-size: 190%;
- }
- #transparent{
-  margin-top: 3%;
-  width: 49%;
- }
- #msg2{  
-  font-size: 190%;
+  top: 39.03vh;
+  left: 34.28vw;
  }
  #mode {
-  margin-right: 47%; 
-  width: 28%;
-  height: 14%;
-  font-size: 120%;
-  border-radius: 40px;
+  margin-left: 1vw;  
  }
  #msg3{
-  margin-left: 65%; 
-  font-size: 190%;
+   margin-top: 1.25vh;    
  }
  #optionsMenu{
-  font-size: 120%;
-  border-radius: 30px;
- }
- #msg4{
-  margin-top: 2%;
-  margin-left: 65%; 
-  font-size: 190%;
+  margin-left: 1.5vw;
  }
  #chatgpt{
-  margin-right: 18%;  
-  font-size: 120%;
-  width: 28%;
-  height: 14%;
-  border-radius: 30px;
+  margin-left: 1.1vw;  
  } 
  #imgc{
-  top: 15%;
- }
- #msg5{
-  margin-top: 2%;
-  margin-left: 65%; 
-  font-size: 190%;
+  top: 16.2vh;
+  height: 10vh;
+  aspect-ratio: 1 / 1;
  }
  #upload{
-  margin-right: 18%;  
-  font-size: 120%;
-  width: 28%;
-  height: 14%;
-  border-radius: 30px;
+  margin-left: 0.8vw;
  } 
+ #content{
+  width: 68vw;
+  height: 32vh;
+  margin-top: 33.5vh;
+  margin-left: 14vw;
+  border-radius: 40px;
+ } 
+ #transparent{
+  transform: scale(2);
+  width: 17vw;
+  top: 41.69vh;
+  left: 42.97vw;
+ }
+#close{
+ font-size: 3vh;
 }
+#delete{
+ height: 2vh;
+ aspect-ratio: 1 / 1;
+ top: 59.2vh;
+ left: 56.1vw;
+}
+#weather{
+ height: 13vh;
+ width: 20vw;
+ top: -13vh;  
+ clip-path: inset(2vh 0px 3vh 0px);
+}
+} 

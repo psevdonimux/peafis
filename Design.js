@@ -110,18 +110,12 @@ class Design {
    close.style.cssText = `
     color: #B00000;
     float: right;
-    font-size: 28px;
     font-weight: bold;
     margin-top: -2%;
    `;
    content.style.cssText = `
     background-color: #FFFFFF;
-    margin: auto;
-    margin-top: 10%;
     padding: 20px;
-    width: 80%;
-    height: 50%;
-    border-radius: 25px;
     text-align: center;
    `;
    modal.style.cssText = `
