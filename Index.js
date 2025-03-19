@@ -87,50 +87,59 @@ elements.one.onclick = () => {
   var args = input.split(' ');
   var command = args[0];
   var value = args.slice(1).join(' ');
-  switch(command){
-  case 'image':
-   if(value){
-    localStorage.setItem('image', value);
-    imageLoad();
-   }
-  break;
-  case 'weather':
-   if(value){
-    localStorage.setItem('weatherId', value);
-    modeWeather();
-   }
-   else{
-    alert('Синтаксис: weather (id) ' + "\n" +
-     'Москва - 213' + "\n" +
-     'Пермь - 50' + "\n" +
-     'Владикавказ - 33');
-   }
-  break;
-  case 'list':
-   alert(Object.entries(info).map(([k, v]) => `${k} - ${v}`).join('\n'));
-  break;
-  case 'copy':
-   var text = Object.entries(info).map(([k, v]) => `${k} ${v}`).join(', ');
-   alert(text);
-   navigator.clipboard.writeText(text);
-  break;
-  case 'delete':
-   value.split(', ').forEach(k => delete info[k]);
-   localStorage.setItem('info', JSON.stringify(info));
-  break;
-  case 'clearAll':
-   localStorage.removeItem('info');
-  break;
-  default:
-   if(args.length >= 2){
-    value.split(', ').forEach(pair => {
-    let [key, val] = pair.split(' ');
-    if(key && val) info[key] = val;
-   });
-   localStorage.setItem('info', JSON.stringify(info));
-  }
-  else if(info[command]){
-   location.replace(info[command]);
-  }
+  switch(command) {
+    case 'image':
+      if(value) {
+        localStorage.setItem('image', value);
+        imageLoad();
+      }
+      break;
+    case 'weather':
+      if(value) {
+        localStorage.setItem('weatherId', value);
+        modeWeather();
+      }
+      else {
+        alert('Синтаксис: weather (id) ' + "\n" +
+          'Москва - 213' + "\n" +
+          'Пермь - 50' + "\n" +
+          'Владикавказ - 33');
+      }
+      break;
+    case 'list':
+      alert(Object.entries(info).map(([k, v]) => `${k} - ${v}`).join('\n'));
+      break;
+    case 'copy':
+      var text = Object.entries(info).map(([k, v]) => `${k} ${v}`).join(', ');
+      alert(text);
+      navigator.clipboard.writeText(text);
+      break;
+    case 'delete':
+      value.split(', ').forEach(k => delete info[k]);
+      localStorage.setItem('info', JSON.stringify(info));
+      break;
+    case 'clearAll':
+      localStorage.removeItem('info');
+      break;
+    default:
+      if(value) {
+        if(value.includes(',')) {
+          let allPairs = [`${command} ${value.split(',')[0].trim()}`];          
+          if(value.split(',').length > 1) {
+            allPairs = allPairs.concat(value.split(',').slice(1));
+          }
+          allPairs.forEach(pair => {
+            let [key, val] = pair.trim().split(' ');
+            if(key && val) info[key] = val;
+          });
+        } 
+        else{
+          info[command] = value;
+        }
+        localStorage.setItem('info', JSON.stringify(info));
+      }
+      else if(info[command]) {
+        location.replace(info[command]);
+      }
   }
 };
