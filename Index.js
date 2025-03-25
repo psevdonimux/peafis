@@ -146,214 +146,160 @@ elements.one.onclick = () => {
 
 //the code is not optimized
 const STORAGE_KEY = 'darkModeLabels';
-    const darkOverlay = document.createElement('div');
-    darkOverlay.id = 'dark-overlay';
-    darkOverlay.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 9998;
-            display: none;
-   `;
-    document.body.appendChild(darkOverlay);    
-    let lastTapTime = 0;
-    let isDarkened = false;
-    let labels = [];
-    let longTouchTimer = null;
-    function saveLabels() {
-        const labelsData = labels.map(label => ({
-            xVw: parseFloat(label.dataset.xVw),
-            yVh: parseFloat(label.dataset.yVh),
-            text: label.dataset.text,
-            link: label.dataset.link
-        }));
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(labelsData));
-    }  
-    function loadLabels() {     
-            const data = localStorage.getItem(STORAGE_KEY);
-            return data ? JSON.parse(data) : [];        
-    }   
-    function toggleDarkMode() {
-        isDarkened = !isDarkened;
-        darkOverlay.style.display = isDarkened ? 'block' : 'none';       
-        if (isDarkened) {
-            loadSavedLabels();
-        } else {
-            labels.forEach(label => label.remove());
-            labels = [];
-        }
-    }   
-    function loadSavedLabels() {
-        labels.forEach(label => label.remove());
-        labels = [];       
-        loadLabels().forEach(data => {
-            const xVw = data.xVw !== undefined ? data.xVw : data.xPercent;
-            const yVh = data.yVh !== undefined ? data.yVh : data.yPercent;
-            createLabel(null, null, data.text, data.link, xVw, yVh);
-        });
-    }   
-    function createLabel(x, y, text, link, xVw = null, yVh = null) {
-        if (xVw === null && x !== null) {
-            xVw = (x / window.innerWidth) * 100;
-        }     
-        if (yVh === null && y !== null) {
-            yVh = (y / window.innerHeight) * 100;
-        }       
-        const label = document.createElement('div');
-        label.className = 'label';
-        label.textContent = text;
-        label.style.left = `${xVw}vw`;
-        label.style.top = `${yVh}vh`;      
-        label.dataset.link = link;
-        label.dataset.xVw = xVw;
-        label.dataset.yVh = yVh;
-        label.dataset.text = text;     
-        let touchStartTime = 0;
-        let touchTimer = null;       
-        label.addEventListener('touchstart', (e) => {
-            touchStartTime = Date.now();
-            touchTimer = setTimeout(() => showDeleteConfirmation(label), 800);
-            e.preventDefault();
-            e.stopPropagation();
-        });     
-        label.addEventListener('touchend', (e) => {
-            clearTimeout(touchTimer);
-            if (Date.now() - touchStartTime < 800) {
-                const infoStorage = localStorage.getItem('info');
-                if (infoStorage) {
-                    const infoData = JSON.parse(infoStorage);
-                    if (infoData[label.dataset.text]) {
-                        window.location.href = infoData[label.dataset.text];
-                    } else {
-                        window.location.href = label.dataset.link;
-                    }
-                } else {
-                    window.location.href = label.dataset.link;
-                }
-            }
-            e.preventDefault();
-            e.stopPropagation();
-        });        
-        label.addEventListener('touchmove', (e) => {
-            clearTimeout(touchTimer);
-            e.preventDefault();
-            e.stopPropagation();
-        });     
-        document.body.appendChild(label);
-        labels.push(label);
-        return label;
-    }    
-    function showDeleteConfirmation(label) {
-        const confirmation = document.createElement('div');
-        confirmation.className = 'delete-confirm';
-        confirmation.innerHTML = `
-            <p>Действия с меткой:</p>
-            <p>"${label.textContent}"</p>
-            <div class="button-container">
-                <button class="confirm-edit">Редактировать</button>
-                <button class="confirm-yes">Удалить</button>
-                <button class="confirm-no">Отмена</button>
-            </div>
-        `;       
-        confirmation.querySelector('.confirm-yes').addEventListener('click', () => {
-            const labelIndex = labels.indexOf(label);
-            if (labelIndex !== -1) {
-                labels.splice(labelIndex, 1);
-            }
-            label.remove();
-            saveLabels();
-            confirmation.remove();
-        });        
-        confirmation.querySelector('.confirm-no').addEventListener('click', () => {
-            confirmation.remove();
-        });       
-        confirmation.querySelector('.confirm-edit').addEventListener('click', () => {
-            confirmation.remove();
-            showEditForm(label);
-        });        
-        document.body.appendChild(confirmation);
-    }   
-    function showEditForm(label) {
-        const editForm = document.createElement('div');
-        editForm.className = 'edit-form';
-        editForm.innerHTML = `
-            <h3>Редактирование метки</h3>
-            <div class="input-group">
-                <label for="edit-text">Текст:</label>
-                <input type="text" id="edit-text" value="${label.dataset.text}">
-            </div>
-            <div class="input-group">
-                <label for="edit-link">Ссылка:</label>
-                <input type="text" id="edit-link" value="${label.dataset.link}">
-            </div>
-            <div class="button-container">
-                <button class="save-button">Сохранить</button>
-                <button class="cancel-button">Отмена</button>
-            </div>
-        `;        
-        editForm.querySelector('.save-button').addEventListener('click', () => {
-            const newText = editForm.querySelector('#edit-text').value;
-            const newLink = editForm.querySelector('#edit-link').value;            
-            if (newText && newLink) {
-                label.textContent = newText;
-                label.dataset.text = newText;
-                label.dataset.link = newLink;
-                saveLabels();
-                editForm.remove();
-            } else {
-                alert('Текст и ссылка не могут быть пустыми!');
-            }
-        });      
-        editForm.querySelector('.cancel-button').addEventListener('click', () => {
-            editForm.remove();
-        });      
-        document.body.appendChild(editForm);
-    }  
-    document.addEventListener('touchstart', function(event) {
-        if (event.touches.length === 2) {
-            const currentTime = new Date().getTime();
-            if (currentTime - lastTapTime < 500) {
-                toggleDarkMode();
-            }
-            lastTapTime = currentTime;
-        }       
-        if (isDarkened && event.touches.length === 1) {
-            if (event.target.classList.contains('label') || event.target.closest('.delete-confirm') || event.target.closest('.edit-form')) {
-                return;
-            }      
-            longTouchTimer = setTimeout(() => {
-                const touch = event.touches[0];
-                const text = prompt('Введите текст для метки:', '');
-                if (text) {
-                    let link = '';
-                    const infoStorage = localStorage.getItem('info');
-                    if (infoStorage) {
-                        const infoData = JSON.parse(infoStorage);
-                        if (infoData[text]) {
-                            link = infoData[text];
-                            if (confirm(`Найдена ссылка для "${text}": ${link}\nИспользовать эту ссылку?`)) {
-                                createLabel(touch.pageX, touch.pageY, text, link);
-                                saveLabels();
-                                alert('Метка создана!');
-                                return;
-                            }
-                        }
-                    }                    
-                    link = prompt('Введите ссылку для этой метки:', '');
-                    if (link) {
-                        createLabel(touch.pageX, touch.pageY, text, link);
-                        saveLabels();
-                        alert('Метка создана!');
-                    }
-                }
-            }, 500);
-        }
-    });    
-    document.addEventListener('touchend', function() {
-        clearTimeout(longTouchTimer);
-        longTouchTimer = null;
-    });
-
+let isDarkened = false, labels = [], lastTapTime = 0, longTouchTimer = null;
+const darkOverlay = document.createElement('div');
+darkOverlay.id = 'dark-overlay';
+darkOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.7);z-index:9998;display:none;';
+document.body.appendChild(darkOverlay);
+const saveLabels = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(
+ labels.map(({dataset}) => ({
+  xVw: parseFloat(dataset.xVw),
+  yVh: parseFloat(dataset.yVh),
+  text: dataset.text,
+  link: dataset.link
+ }))
+));
+const createLabel = (x, y, text, link, xVw = null, yVh = null) => {
+ const label = document.createElement('div');
+ label.className = 'label';
+ label.textContent = text;
+ xVw ??= (x / window.innerWidth) * 100;
+ yVh ??= (y / window.innerHeight) * 100;
+ label.style.left = `${xVw}vw`;
+ label.style.top = `${yVh}vh`;
+ Object.assign(label.dataset, { link, xVw, yVh, text });
+ let touchStartTime = 0, touchTimer = null;  
+ label.ontouchstart = e => {
+  touchStartTime = Date.now();
+  touchTimer = setTimeout(() => showActionOptions(label), 800);
+  e.preventDefault();
+  e.stopPropagation();
+ };  
+ label.ontouchend = e => {
+  clearTimeout(touchTimer);
+  if(Date.now() - touchStartTime < 800) navigateToLink(label);
+  e.preventDefault();
+  e.stopPropagation();
+ };
+ label.ontouchmove = e => {
+  clearTimeout(touchTimer);
+  e.preventDefault();
+  e.stopPropagation();
+ }; 
+ document.body.appendChild(label);
+ return label;
+};
+const navigateToLink = label => {
+ const infoStorage = localStorage.getItem('info');
+ let url = label.dataset.link;
+ if(infoStorage) {
+  const infoData = JSON.parse(infoStorage);
+  if(infoData[label.dataset.text]) url = infoData[label.dataset.text];
+ }
+ window.location.href = url;
+};
+const showActionOptions = label => {
+ const confirmation = document.createElement('div');
+ confirmation.className = 'delete-confirm';
+ confirmation.innerHTML = `
+  <p>Действия с меткой:</p>
+  <p>"${label.textContent}"</p>
+  <div class="button-container">
+   <button class="confirm-edit">Редактировать</button>
+   <button class="confirm-yes">Удалить</button>
+   <button class="confirm-no">Отмена</button>
+  </div>`;
+ confirmation.querySelector('.confirm-yes').onclick = () => {
+  labels = labels.filter(item => item !== label);
+  label.remove();
+  saveLabels();
+  confirmation.remove();
+ };
+ confirmation.querySelector('.confirm-no').onclick = () => confirmation.remove();
+ confirmation.querySelector('.confirm-edit').onclick = () => {
+  confirmation.remove();
+  showEditForm(label);
+ };   
+ document.body.appendChild(confirmation);
+};
+const showEditForm = label => {
+ const editForm = document.createElement('div');
+ editForm.className = 'edit-form';
+ editForm.innerHTML = `
+  <h3>Редактирование метки</h3>
+  <div class="input-group">
+   <label for="edit-text">Текст:</label>
+   <input type="text" id="edit-text" value="${label.dataset.text}">
+  </div>
+  <div class="input-group">
+   <label for="edit-link">Ссылка:</label>
+   <input type="text" id="edit-link" value="${label.dataset.link}">
+  </div>
+  <div class="button-container">
+   <button class="save-button">Сохранить</button>
+   <button class="cancel-button">Отмена</button>
+  </div>`;
+ editForm.querySelector('.save-button').onclick = () => {
+  const newText = editForm.querySelector('#edit-text').value;
+  const newLink = editForm.querySelector('#edit-link').value;
+  if(newText && newLink) {
+   label.textContent = newText;
+   label.dataset.text = newText;
+   label.dataset.link = newLink;
+   saveLabels();
+   editForm.remove();
+  } else alert('Текст и ссылка не могут быть пустыми!');
+ };
+ editForm.querySelector('.cancel-button').onclick = () => editForm.remove();
+ document.body.appendChild(editForm);
+};
+const toggleDarkMode = () => {
+ isDarkened = !isDarkened;
+ darkOverlay.style.display = isDarkened ? 'block' : 'none';  
+ if(isDarkened) {
+  const savedLabels = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  labels = savedLabels.map(data => {
+   const xVw = data.xVw ?? data.xPercent;
+   const yVh = data.yVh ?? data.yPercent;
+   return createLabel(null, null, data.text, data.link, xVw, yVh);
+  });
+ } 
+ else{
+  labels.forEach(label => label.remove());
+  labels = [];
+ }
+};
+const handleLongTouch = event => {
+ if(!isDarkened || event.touches.length !== 1 || event.target.classList.contains('label') || event.target.closest('.delete-confirm') || event.target.closest('.edit-form')) return;       
+ const touch = event.touches[0];
+ const text = prompt('Введите текст для метки:', '');
+ if(!text) return;  
+ const infoStorage = localStorage.getItem('info');
+ let link = '';    
+ if(infoStorage) {
+  const infoData = JSON.parse(infoStorage);
+  if(infoData[text] && confirm(`Найдена ссылка для "${text}": ${infoData[text]}\nИспользовать эту ссылку?`)) {
+   labels.push(createLabel(touch.pageX, touch.pageY, text, infoData[text]));
+   saveLabels();
+   alert('Метка создана!');
+   return;
+  }
+ } 
+ link = prompt('Введите ссылку для этой метки:', '');
+ if(link) {
+  labels.push(createLabel(touch.pageX, touch.pageY, text, link));
+  saveLabels();
+  alert('Метка создана!');
+ }
+};
+document.ontouchstart = event => {
+ if(event.touches.length === 2) {
+  const currentTime = Date.now();
+  if(currentTime - lastTapTime < 500) toggleDarkMode();
+  lastTapTime = currentTime;
+ }
+ if(isDarkened && event.touches.length === 1) {
+  longTouchTimer = setTimeout(() => handleLongTouch(event), 500);
+ }
+};
+document.ontouchend = () => clearTimeout(longTouchTimer);
