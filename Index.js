@@ -167,12 +167,12 @@ const createLabel = (x, y, text, link, xVw = null, yVh = null) => {
  };
  l.ontouchstart = e => {
   touchStartTime = Date.now();
-  touchTimer = setTimeout(() => showActionOptions(l), 800);
+  touchTimer = setTimeout(() => showActionOptions(l), 250);
   stop(e);
  };
  l.ontouchend = e => {
   clearTimeout(touchTimer);
-  if(Date.now() - touchStartTime < 800) navigateToLink(l);
+  if(Date.now() - touchStartTime < 250) navigateToLink(l);
   stop(e);
  };
  l.ontouchmove = e => { clearTimeout(touchTimer); stop(e); };
@@ -181,7 +181,7 @@ const createLabel = (x, y, text, link, xVw = null, yVh = null) => {
 };
 const navigateToLink = l => {
  const info = JSON.parse(localStorage.getItem('info') || 'null');
- window.location.href = info && info[l.dataset.text] ? info[l.dataset.text] : l.dataset.link;
+ location.href = info && info[l.dataset.text] ? info[l.dataset.text] : l.dataset.link;
 };
 const showActionOptions = l => {
  const c = document.createElement('div');
@@ -248,10 +248,9 @@ const handleLongTouch = e => {
 };
 document.ontouchstart = e => {
  if(e.touches.length === 2){
-  const now = Date.now();
-  if(now - lastTapTime < 500) toggleDarkMode();
+  toggleDarkMode();
   lastTapTime = now;
  }
- if(isDarkened && e.touches.length === 1) longTouchTimer = setTimeout(() => handleLongTouch(e), 500);
+ if(isDarkened && e.touches.length === 1) longTouchTimer = setTimeout(() => handleLongTouch(e), 250);
 };
 document.ontouchend = () => clearTimeout(longTouchTimer);
