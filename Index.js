@@ -149,157 +149,109 @@ const STORAGE_KEY = 'darkModeLabels';
 let isDarkened = false, labels = [], lastTapTime = 0, longTouchTimer = null;
 const darkOverlay = document.createElement('div');
 darkOverlay.id = 'dark-overlay';
-darkOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.7);z-index:9998;display:none;';
+darkOverlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); z-index: 9998; display: none;';
 document.body.appendChild(darkOverlay);
-const saveLabels = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(
- labels.map(({dataset}) => ({
-  xVw: parseFloat(dataset.xVw),
-  yVh: parseFloat(dataset.yVh),
-  text: dataset.text,
-  link: dataset.link
- }))
-));
+const saveLabels = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(labels.map(({ dataset: d }) => ({ xVw: +d.xVw, yVh: +d.yVh, text: d.text, link: d.link }))));
 const createLabel = (x, y, text, link, xVw = null, yVh = null) => {
- const label = document.createElement('div');
- label.className = 'label';
- label.textContent = text;
- xVw ??= (x / window.innerWidth) * 100;
- yVh ??= (y / window.innerHeight) * 100;
- label.style.left = `${xVw}vw`;
- label.style.top = `${yVh}vh`;
- Object.assign(label.dataset, { link, xVw, yVh, text });
- let touchStartTime = 0, touchTimer = null;  
- label.ontouchstart = e => {
+ const l = document.createElement('div');
+ l.className = 'label';
+ l.textContent = text;
+ xVw = xVw ?? x / window.innerWidth * 100;
+ yVh = yVh ?? y / window.innerHeight * 100;
+ l.style.cssText = `left: ${xVw}vw; top: ${yVh}vh;`;
+ Object.assign(l.dataset, { link, xVw, yVh, text });
+ let touchStartTime = 0, touchTimer = null;
+ const stop = e => {
+  e.preventDefault(); 
+  e.stopPropagation();
+ };
+ l.ontouchstart = e => {
   touchStartTime = Date.now();
-  touchTimer = setTimeout(() => showActionOptions(label), 800);
-  e.preventDefault();
-  e.stopPropagation();
- };  
- label.ontouchend = e => {
-  clearTimeout(touchTimer);
-  if(Date.now() - touchStartTime < 800) navigateToLink(label);
-  e.preventDefault();
-  e.stopPropagation();
+  touchTimer = setTimeout(() => showActionOptions(l), 800);
+  stop(e);
  };
- label.ontouchmove = e => {
+ l.ontouchend = e => {
   clearTimeout(touchTimer);
-  e.preventDefault();
-  e.stopPropagation();
- }; 
- document.body.appendChild(label);
- return label;
+  if(Date.now() - touchStartTime < 800) navigateToLink(l);
+  stop(e);
+ };
+ l.ontouchmove = e => { clearTimeout(touchTimer); stop(e); };
+ document.body.appendChild(l);
+ return l;
 };
-const navigateToLink = label => {
- const infoStorage = localStorage.getItem('info');
- let url = label.dataset.link;
- if(infoStorage) {
-  const infoData = JSON.parse(infoStorage);
-  if(infoData[label.dataset.text]) url = infoData[label.dataset.text];
- }
- window.location.href = url;
+const navigateToLink = l => {
+ const info = JSON.parse(localStorage.getItem('info') || 'null');
+ window.location.href = info && info[l.dataset.text] ? info[l.dataset.text] : l.dataset.link;
 };
-const showActionOptions = label => {
- const confirmation = document.createElement('div');
- confirmation.className = 'delete-confirm';
- confirmation.innerHTML = `
-  <p>Действия с меткой:</p>
-  <p>"${label.textContent}"</p>
-  <div class="button-container">
-   <button class="confirm-edit">Редактировать</button>
-   <button class="confirm-yes">Удалить</button>
-   <button class="confirm-no">Отмена</button>
-  </div>`;
- confirmation.querySelector('.confirm-yes').onclick = () => {
-  labels = labels.filter(item => item !== label);
-  label.remove();
+const showActionOptions = l => {
+ const c = document.createElement('div');
+ c.className = 'delete-confirm';
+ c.innerHTML = `<p>Действия с меткой:</p><p>"${l.textContent}"</p><div class="button-container"><button class="confirm-edit">Редактировать</button><button class="confirm-yes">Удалить</button><button class="confirm-no">Отмена</button></div>`;
+ c.querySelector('.confirm-yes').onclick = () => {
+  labels = labels.filter(item => item !== l);
+  l.remove();
   saveLabels();
-  confirmation.remove();
+  c.remove();
  };
- confirmation.querySelector('.confirm-no').onclick = () => confirmation.remove();
- confirmation.querySelector('.confirm-edit').onclick = () => {
-  confirmation.remove();
-  showEditForm(label);
- };   
- document.body.appendChild(confirmation);
+ c.querySelector('.confirm-no').onclick = () => c.remove();
+ c.querySelector('.confirm-edit').onclick = () => { c.remove(); showEditForm(l); };
+ document.body.appendChild(c);
 };
-const showEditForm = label => {
- const editForm = document.createElement('div');
- editForm.className = 'edit-form';
- editForm.innerHTML = `
-  <h3>Редактирование метки</h3>
-  <div class="input-group">
-   <label for="edit-text">Текст:</label>
-   <input type="text" id="edit-text" value="${label.dataset.text}">
-  </div>
-  <div class="input-group">
-   <label for="edit-link">Ссылка:</label>
-   <input type="text" id="edit-link" value="${label.dataset.link}">
-  </div>
-  <div class="button-container">
-   <button class="save-button">Сохранить</button>
-   <button class="cancel-button">Отмена</button>
-  </div>`;
- editForm.querySelector('.save-button').onclick = () => {
-  const newText = editForm.querySelector('#edit-text').value;
-  const newLink = editForm.querySelector('#edit-link').value;
-  if(newText && newLink) {
-   label.textContent = newText;
-   label.dataset.text = newText;
-   label.dataset.link = newLink;
+const showEditForm = l => {
+ const f = document.createElement('div');
+ f.className = 'edit-form';
+ f.innerHTML = `<h3>Редактирование метки</h3><div class="input-group"><label for="edit-text">Текст:</label><input type="text" id="edit-text" value="${l.dataset.text}"></div><div class="input-group"><label for="edit-link">Ссылка:</label><input type="text" id="edit-link" value="${l.dataset.link}"></div><div class="button-container"><button class="save-button">Сохранить</button><button class="cancel-button">Отмена</button></div>`;
+ f.querySelector('.save-button').onclick = () => {
+  const newText = f.querySelector('#edit-text').value;
+  const newLink = f.querySelector('#edit-link').value;
+  if(newText && newLink){
+   l.textContent = l.dataset.text = newText;
+   l.dataset.link = newLink;
    saveLabels();
-   editForm.remove();
+   f.remove();
   } else alert('Текст и ссылка не могут быть пустыми!');
  };
- editForm.querySelector('.cancel-button').onclick = () => editForm.remove();
- document.body.appendChild(editForm);
+ f.querySelector('.cancel-button').onclick = () => f.remove();
+ document.body.appendChild(f);
 };
 const toggleDarkMode = () => {
  isDarkened = !isDarkened;
- darkOverlay.style.display = isDarkened ? 'block' : 'none';  
- if(isDarkened) {
-  const savedLabels = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-  labels = savedLabels.map(data => {
-   const xVw = data.xVw ?? data.xPercent;
-   const yVh = data.yVh ?? data.yPercent;
-   return createLabel(null, null, data.text, data.link, xVw, yVh);
-  });
+ darkOverlay.style.display = isDarkened ? 'block' : 'none';
+ if(isDarkened){
+  labels = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]').map(d =>
+   createLabel(null, null, d.text, d.link, d.xVw ?? d.xPercent, d.yVh ?? d.yPercent)
+  );
  } 
- else{
-  labels.forEach(label => label.remove());
+ else {
+  labels.forEach(l => l.remove());
   labels = [];
  }
 };
-const handleLongTouch = event => {
- if(!isDarkened || event.touches.length !== 1 || event.target.classList.contains('label') || event.target.closest('.delete-confirm') || event.target.closest('.edit-form')) return;       
- const touch = event.touches[0];
+const handleLongTouch = e => {
+ if(!isDarkened || e.touches.length !== 1 || e.target.classList.contains('label') || e.target.closest('.delete-confirm, .edit-form')) return;
+ const touch = e.touches[0];
  const text = prompt('Введите текст для метки:', '');
- if(!text) return;  
- const infoStorage = localStorage.getItem('info');
- let link = '';    
- if(infoStorage) {
-  const infoData = JSON.parse(infoStorage);
-  if(infoData[text] && confirm(`Найдена ссылка для "${text}": ${infoData[text]}\nИспользовать эту ссылку?`)) {
-   labels.push(createLabel(touch.pageX, touch.pageY, text, infoData[text]));
-   saveLabels();
-   alert('Метка создана!');
-   return;
-  }
- } 
- link = prompt('Введите ссылку для этой метки:', '');
- if(link) {
+ if(!text) return;
+ const info = JSON.parse(localStorage.getItem('info') || 'null');
+ if(info && info[text] && confirm(`Найдена ссылка для "${text}": ${info[text]}\nИспользовать эту ссылку?`)){
+  labels.push(createLabel(touch.pageX, touch.pageY, text, info[text]));
+  saveLabels();
+  alert('Метка создана!');
+  return;
+ }
+ const link = prompt('Введите ссылку для этой метки:', '');
+ if(link){
   labels.push(createLabel(touch.pageX, touch.pageY, text, link));
   saveLabels();
   alert('Метка создана!');
  }
 };
-document.ontouchstart = event => {
- if(event.touches.length === 2) {
-  const currentTime = Date.now();
-  if(currentTime - lastTapTime < 500) toggleDarkMode();
-  lastTapTime = currentTime;
+document.ontouchstart = e => {
+ if(e.touches.length === 2){
+  const now = Date.now();
+  if(now - lastTapTime < 500) toggleDarkMode();
+  lastTapTime = now;
  }
- if(isDarkened && event.touches.length === 1) {
-  longTouchTimer = setTimeout(() => handleLongTouch(event), 500);
- }
+ if(isDarkened && e.touches.length === 1) longTouchTimer = setTimeout(() => handleLongTouch(e), 500);
 };
 document.ontouchend = () => clearTimeout(longTouchTimer);
