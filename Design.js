@@ -32,8 +32,8 @@ class Design {
   localStorage.setItem('mode', mode);
  }
  cssMode(ids, custom = '', custom2 = ''){
-  var dark = this.isDarkMode() ? '#323338' : '#FFFFFF';
-  var white = this.isDarkMode() ? '#FFFFFF' : '#323338';
+  var dark = this.isDarkMode() ? '#000000' : '#FFFFFF';
+  var white = this.isDarkMode() ? '#FFFFFF' : '#000000';
    for(var i = 0; i < ids.length; i++){
   if(custom != '' && custom2 != ''){
    dark = custom2;
@@ -86,50 +86,14 @@ class Design {
   }*/
    }
  }
- imageMode(ids, image){
+ imageMode(ids){
   for(var i = 0; i < ids.length; i++){
-   document.getElementById(ids[i]).src = design.getImageMain() + image[i];
+   document.getElementById(ids[i]).style.filter = this.isDarkMode() ? 'invert(0)' : 'invert(1)';
   } 
  }
  loaderImage(images){
   for(var i = 0; i < images.length; i++){
    document.getElementById("loader").src = design.getImageMain() + images[i];
   } 
- }
- createModal(modalId, contentId, openId){
-  var modalStatusClick = function(id, modal, modalId){
-   document.getElementById(id).onclick = function(){   
-    document.getElementById(modalId).style.display = modal;
-    }
-   };
-   var content = document.getElementById(contentId); 
-   var modal = document.getElementById(modalId);
-   var close = document.createElement('span');
-   close.id = 'close';
-   close.textContent = '×';  
-   close.style.cssText = `
-    color: #B00000;
-    float: right;
-    font-weight: bold;
-    margin-top: -2%;
-   `;
-   content.style.cssText = `
-    background-color: #FFFFFF;
-    padding: 20px;
-    text-align: center;
-   `;
-   modal.style.cssText = `
-    display: none; 
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;    
-    background-color: rgba(0,0,0,0.4);
-   `;
-    content.prepend(close);
-    modalStatusClick(openId, 'block', modalId);
-    modalStatusClick('close', 'none', modalId);
  }
 }

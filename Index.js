@@ -1,7 +1,7 @@
 //vars
 var design = new Design();
 var transparentValue = localStorage.getItem('transparent');
-const elementsIds = ['weather', 'delete', 'one', 'transparent', 'optionsMenu', 'chatgpt', 'imgc', 'mode', 'fileInput', 'upload'];
+const elementsIds = ['export', 'random', 'close', 'modalSettings', 'settings', 'weather', 'delete', 'one', 'transparent', 'optionsWeather', 'optionsMenu', 'chatgpt', 'imgc', 'mode', 'fileInput', 'import'];
 var elements = Object.fromEntries(elementsIds.map(id => [id, document.getElementById(id)]));
 //functions
 function search(event, value){
@@ -9,11 +9,11 @@ function search(event, value){
  location.replace((localStorage.getItem('search') ?? 'https://yandex.eu/search/touch/?text=') + value);
 }
 function mode(){
- design.cssMode(['hm', 'searching', 'settings', 'mode', 'content', 'title', 'optionsMenu', 'chatgpt', 'upload']); 
- elements.mode.innerHTML = design.isDarkMode() ? 'Тёмная' : 'Светлая';
+ design.cssMode(['hm', 'searching', 'settings', 'mode', 'modalSettings', 'optionsMenu', 'optionsWeather', 'chatgpt']); 
+ elements.mode.textContent = design.isDarkMode() ? 'Тёмная' : 'Светлая';
  design.cssMode(['searching'], design.isDarkMode() ? '#FFFFFF' : '#000000', 'transparent');
- design.cssBorder(['searching', 'settings', 'mode', 'optionsMenu', 'chatgpt', 'upload']);
- design.imageMode(['imgc'], ['chatgpt.webp']);
+ design.cssBorder(['searching', 'settings', 'mode', 'optionsMenu', 'chatgpt', 'optionsWeather']);
+ design.imageMode(['imgc', 'import', 'export']);
 }
 function imageLoad() {
  var imageSrc = localStorage.getItem('image'); 
@@ -22,7 +22,7 @@ function imageLoad() {
    background-image: url(${imageSrc});
    background-size: ${window.innerWidth}px ${window.innerHeight}px;
   `;
-  } 
+  }
   mode(); 
 }
 function chatGptStatusButton(){
@@ -36,7 +36,7 @@ function modeWeather(){
   var weatherIdNumber = parseInt(weatherId, 10);
   if(!isNaN(weatherIdNumber)){
     elements.weather.src = 'https://info.weather.yandex.net/' + weatherIdNumber + '/3.png';
-    elements.weather.style.display = 'block';
+    elements.weather.style.display = 'flex';
   } 
   else{
     elements.weather.style.display = 'none';
@@ -46,10 +46,16 @@ function setOpacities(ids, value){
  ids.forEach(id => document.getElementById(id).style.opacity = value);
 }
 //call functions
-design.createModal('modal', 'content', 'settings');
+elements.settings.onclick = () => {
+ elements.modalSettings.showModal();
+};
+elements.close.onclick = () => {
+ elements.modalSettings.close();
+}
 elements.transparent.value = transparentValue ? transparentValue * 10 : 10;
 setOpacities(['settings', 'imgc'], transparentValue ?? 1);
 elements.optionsMenu.value = localStorage.getItem('search') ?? 'https://yandex.eu/search/touch/?text=';
+elements.optionsWeather.value = localStorage.getItem('weatherId') ?? '';
 imageLoad();
 chatGptStatusButton();
 modeChatGpt();
@@ -57,8 +63,21 @@ mode();
 modeWeather();
 //events
 elements.optionsMenu.onchange = (event) => localStorage.setItem('search', event.target.value);
+elements.optionsWeather.onchange = (event) => {
+ localStorage.setItem('weatherId', event.target.value); 
+ modeWeather();
+};
 window.onresize = () => imageLoad();
-elements.upload.onclick = () => elements.fileInput.click();
+elements.import.onclick = () => elements.fileInput.click();
+elements.export.onclick = () => {
+  const imageData = localStorage.getItem('image');
+  if(imageData) {
+    const link = document.createElement('a');
+    link.href = imageData;
+    link.download = 'wallpaper.png';
+    link.click();
+  } 
+};
 elements.transparent.onchange = (event) => {
  var value = event.target.value / 10;
  localStorage.setItem('transparent', value);
@@ -80,6 +99,21 @@ elements.fileInput.onchange = () => {
 elements.delete.onclick = () => {
  localStorage.removeItem('image');
  imageLoad();
+};
+elements.random.onclick = () => {
+  const img = new Image();
+  img.src = 'https://picsum.photos/1000?random=' + Date.now();
+  img.crossOrigin = 'Anonymous';
+  img.onload = () => {
+  const canvas = document.createElement('canvas');
+  canvas.width = img.width;
+  canvas.height = img.height;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(img, 0, 0);
+  const dataURL = canvas.toDataURL();
+  localStorage.setItem('image', dataURL);
+  imageLoad(); // твоя функция после загрузки
+  };
 };
 elements.one.onclick = () => {
   var input = prompt();
@@ -146,7 +180,9 @@ elements.one.onclick = () => {
 
 //the code is not optimized
 const STORAGE_KEY = 'darkModeLabels';
-let isDarkened = false, labels = [], lastTapTime = 0, longTouchTimer = null;
+let isDarkened = false, labels = [], lastTapTime = 0, longTouchTimer = null, longPressTimer = null;
+let mouseX = 0, mouseY = 0;
+let keysPressed = {};
 const darkOverlay = document.createElement('div');
 darkOverlay.id = 'dark-overlay';
 darkOverlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); z-index: 9998; display: none;';
@@ -176,6 +212,12 @@ const createLabel = (x, y, text, link, xVw = null, yVh = null) => {
   stop(e);
  };
  l.ontouchmove = e => { clearTimeout(touchTimer); stop(e); };
+ l.onclick = () => navigateToLink(l);
+ l.oncontextmenu = (e) => {
+  e.preventDefault();
+  showActionOptions(l);
+  return false;
+ };
  document.body.appendChild(l);
  return l;
 };
@@ -246,10 +288,47 @@ const handleLongTouch = e => {
   alert('Метка создана!');
  }
 };
+const createLabelAtMouse = () => {
+ if(!isDarkened) return;
+ const text = prompt('Введите текст для метки:', '');
+ if(!text) return;
+ const info = JSON.parse(localStorage.getItem('info') || 'null');
+ if(info && info[text] && confirm(`Найдена ссылка для "${text}": ${info[text]}\nИспользовать эту ссылку?`)){
+  labels.push(createLabel(mouseX, mouseY, text, info[text]));
+  saveLabels();
+  alert('Метка создана!');
+  return;
+ }
+ const link = prompt('Введите ссылку для этой метки:', '');
+ if(link){
+  labels.push(createLabel(mouseX, mouseY, text, link));
+  saveLabels();
+  alert('Метка создана!');
+ }
+};
+document.addEventListener('mousemove', (e) => {
+ mouseX = e.clientX;
+ mouseY = e.clientY;
+});
+document.addEventListener('mousedown', (e) => {
+     if(event.button === 1) {
+    toggleDarkMode();
+   }
+  if(!isDarkened || e.target.classList.contains('label') || 
+     e.target.closest('.delete-confirm, .edit-form')) return;
+  longPressTimer = setTimeout(() => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    createLabelAtMouse();
+  }, 500);
+});
+document.addEventListener('mouseup', () => {
+  clearTimeout(longPressTimer);
+});
 document.ontouchstart = e => {
- if(e.touches.length === 2){
+ if(e.touches.length === 2 && !elements.modalSettings.open){
   toggleDarkMode();
-  lastTapTime = now;
+  lastTapTime = Date.now();
  }
  if(isDarkened && e.touches.length === 1) longTouchTimer = setTimeout(() => handleLongTouch(e), 250);
 };

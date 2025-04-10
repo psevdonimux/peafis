@@ -1,63 +1,83 @@
-<html id="hm">
+<html id="hm" lang="ru">
 <head>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript" >
+ <title>Peafis - Поисковик будущего</title>
+ <meta name="viewport" content="user-scalable=no">
+ <link rel="icon" href="image/icon.webp">
+ <link rel="stylesheet" href="Index.css">
+ <!-- Yandex.Metrika counter -->
+ <script type="text/javascript" >
    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
    m[i].l=1*new Date();
    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
    ym(100754221, "init", {
-        clickmap:true,
-        trackLinks:true,
-        accurateTrackBounce:true
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true
    });
-</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/100754221" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+ </script>
+ <noscript><div><img src="https://mc.yandex.ru/watch/100754221" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+ <!-- /Yandex.Metrika counter -->
 </head>
-<title>Peafis - Поисковик будущего</title>
-<meta name="viewport" content="user-scalable=no">
-<script src="Design.js"></script>
-<link rel="icon" href="image/icon.webp">
-<form onsubmit="search(event, this.searching.value);">
- <input name="searching" id="searching">
-</form>
-<button id="one">ТЫК</button>
-<button id="settings">Настройки</button>
-<div id="modal">
-<div id="content">
-<h1 id="title">Настройки</h1>
-<input type="range" id="transparent" min="0" max="10" /> 
-<p id="msg" class="fontSizeMsg">Прозрачность кнопок:</p>
-<div id="column" class="column">
-<p id="msg2" class="fontSizeMsg">Тема:</p>
-<button id="mode" class="sizeButton" onclick="design.updateMode(); mode();"></button> 
-</div>
-<div id="column2" class="column">
-<p id="msg3" class="fontSizeMsg">Поисковик:</p>
-<select id="optionsMenu" class="sizeButton">
- <option value="https://yandex.eu/search/touch/?text=">Yandex</option>
- <option value="https://www.google.com/search?q=">Google</option>
- <option value="https://www.bing.com/search?q=">Bing</option>
-</select>
-</div>
-<div id="column3" class="column">
-<p id="msg4" class="fontSizeMsg">ChatGPT:</p>
-<button id="chatgpt" class="sizeButton"></button> 
-</div>
-<div id="column4" class="column">
-<p id="msg5" class="fontSizeMsg">Обои:</p>
-<input id="fileInput" type="file" accept="image/*">
-<button id="upload" class="sizeButton">Загрузить</button>
-</div>
-<img id="delete" src="image/delete.webp">
-</div>
-</div>
-<a href="https://dev.yqcloud.top/#/chat/9999999999999">
-<img id="imgc">
-</a>
-<img id="weather">
-<script src="Index.js"></script>
-<link rel="stylesheet" href="Index.css">
+<body>
+ <form onsubmit="search(event, this.searching.value);">
+  <input name="searching" id="searching">
+ </form>
+ <button id="one">ТЫК</button>
+ <button id="settings">Настройки</button>
+ <dialog id="modalSettings">
+  <span id="close">×</span>
+  <div class="column">
+   <h1 id="title">Настройки</h1>
+  </div>
+  <div id="test">
+   <div class="column">
+    <p id="msg" class="fontSizeMsg">Прозрачность кнопок:</p>
+    </div>
+    <input type="range" id="transparent" min="0" max="10" /> 
+    <div class="column">
+     <p class="fontSizeMsg">Тема:</p>
+     <button id="mode" class="sizeButton" onclick="design.updateMode(); mode();"></button> 
+    </div>
+    <div class="column">
+    <p class="fontSizeMsg">Поисковик:</p>
+    <select id="optionsMenu" class="sizeButton">
+     <option value="https://yandex.eu/search/touch/?text=">Yandex</option>
+     <option value="https://www.google.com/search?q=">Google</option>
+     <option value="https://www.bing.com/search?q=">Bing</option>
+     <option value="https://duckduckgo.com/?q=">DuckDuckGo</option>
+    </select>
+   </div>
+   <div class="column">
+    <p class="fontSizeMsg">ChatGPT:</p>
+    <button id="chatgpt" class="sizeButton"></button> 
+   </div>
+   <div class="column">
+    <p class="fontSizeMsg">Обои:</p>
+    <input id="fileInput" type="file" accept="image/*">
+    <img id="import" class="icons" src="image/import.webp">
+    <img id="export" class="icons" src="image/export.webp">
+    <img id="delete" class="icons" src="image/delete.webp">
+    <img id="random" class="icons" src="image/random.webp">
+   </div>
+   <div class="column">
+    <p class="fontSizeMsg">Погода:</p>
+    <select id="optionsWeather" class="sizeButton">
+     <option value="">Выключена</option>
+     <option value="33">Владикавказ</option>
+     <option value="35">Краснодар</option>
+     <option value="213">Москва</option>
+     <option value="50">Пермь</option>
+    </select>
+   </div>
+  </div>
+ </dialog>
+ <a href="https://dev.yqcloud.top/#/chat/9999999999999">
+  <img id="imgc" src="image/chatgpt.webp">
+ </a>
+ <img id="weather">
+ <script src="Design.js"></script>
+ <script src="Index.js"></script>
+</body>
 </html>
