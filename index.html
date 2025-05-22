@@ -1,11 +1,11 @@
 <html id="hm" lang="ru">
-<head>
- <title>Peafis - Поисковик будущего</title>
- <meta name="viewport" content="user-scalable=no">
- <link rel="icon" href="image/icon.webp">
- <link rel="stylesheet" href="Index.css">
- <!-- Yandex.Metrika counter -->
- <script type="text/javascript" >
+ <head>
+  <title>Peafis - Поисковик будущего</title>
+  <meta name="viewport" content="user-scalable=no">
+  <link rel="icon" href="image/icon.webp">
+  <link rel="stylesheet" href="Index.css">
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript" >
    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
    m[i].l=1*new Date();
    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
@@ -16,208 +16,208 @@
         trackLinks: true,
         accurateTrackBounce: true
    });
- </script>
- <noscript><div><img src="https://mc.yandex.ru/watch/100754221" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
- <!-- /Yandex.Metrika counter -->
-</head>
-<body>
- <form onsubmit="search(event, this.searching.value);">
-  <input name="searching" id="searching">
- </form>
- <button id="one">ТЫК</button>
- <button id="settings">Настройки</button>
- <dialog id="modalSettings">
-  <span id="close">×</span>
-  <div class="column">
-   <h1 id="title">Настройки</h1>
-  </div>
-  <div id="test">
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/100754221" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+ </head>
+ <body>
+  <form onsubmit="search(event,this.searching.value);">
+   <input name="searching" id="searching">
+  </form>
+  <button id="one">ТЫК</button>
+  <button id="settings">Настройки</button>
+  <dialog id="modalSettings">
+   <span id="close">×</span>
    <div class="column">
-    <p id="msg" class="fontSizeMsg">Прозрачность кнопок:</p>
+    <h1 id="title">Настройки</h1>
+   </div>
+   <div id="test">
+    <div class="column">
+     <p id="msg" class="fontSizeMsg">Прозрачность кнопок:</p>
     </div>
-    <input type="range" id="transparent" min="0" max="10" /> 
+    <input type="range" id="transparent" min="0" max="10"/>
     <div class="column">
      <p class="fontSizeMsg">Тема:</p>
-     <button id="mode" class="sizeButton" onclick="design.updateMode(); mode();"></button> 
+     <button id="mode" class="sizeButton" onclick="design.updateMode(); mode();"></button>
     </div>
     <div class="column">
-    <p class="fontSizeMsg">Поисковик:</p>
-    <select id="optionsMenu" class="sizeButton">
-     <option value="https://yandex.eu/search/touch/?text=">Yandex</option>
-     <option value="https://www.google.com/search?q=">Google</option>
-     <option value="https://www.bing.com/search?q=">Bing</option>
-     <option value="https://duckduckgo.com/?q=">DuckDuckGo</option>
-    </select>
+     <p class="fontSizeMsg">Поисковик:</p>
+     <select id="optionsMenu" class="sizeButton">
+      <option value="https://yandex.eu/search/touch/?text=">Yandex</option>
+      <option value="https://www.google.com/search?q=">Google</option>
+      <option value="https://www.bing.com/search?q=">Bing</option>
+      <option value="https://duckduckgo.com/?q=">DuckDuckGo</option>
+     </select>
+    </div>
+    <div class="column">
+     <p class="fontSizeMsg">ChatGPT:</p>
+     <button id="chatgpt" class="sizeButton"></button>
+    </div>
+    <div class="column">
+     <p class="fontSizeMsg">Обои:</p>
+     <input id="fileInput" type="file" accept="image/*">
+     <img id="import" class="icons" src="image/import.webp">
+     <img id="export" class="icons" src="image/export.webp">
+     <img id="delete" class="icons" src="image/delete.webp">
+     <img id="random" class="icons" src="image/random.webp">
+    </div>
+    <div class="column">
+     <p class="fontSizeMsg">Погода:</p>
+     <select id="optionsWeather" class="sizeButton">
+      <option value="">Выключена</option>
+      <option value="11004">Республика Адыгея</option>
+      <option value="10656">Александров</option>
+      <option value="11121">Альметьевск</option>
+      <option value="10987">Армавир</option>
+      <option value="11080">Арзамас</option>
+      <option value="10946">Астраханская область</option>
+      <option value="197">Барнаул</option>
+      <option value="10716">Балашиха</option>
+      <option value="10645">Белгородская область</option>
+      <option value="10369">Белая Церковь</option>
+      <option value="10314">Бельцы</option>
+      <option value="10315">Бендеры</option>
+      <option value="975">Бийск</option>
+      <option value="11122">Бугульма</option>
+      <option value="976">Братск</option>
+      <option value="191">Брянск</option>
+      <option value="10650">Брянская область</option>
+      <option value="10951">Волжский</option>
+      <option value="10950">Волгоградская область</option>
+      <option value="11036">Волгодонск</option>
+      <option value="963">Винница</option>
+      <option value="10719">Видное</option>
+      <option value="33">Владикавказ</option>
+      <option value="192">Владимир</option>
+      <option value="10658">Владимирская область</option>
+      <option value="193">Воронеж</option>
+      <option value="10672">Воронежская область</option>
+      <option value="969">Выборг</option>
+      <option value="10990">Геленджик</option>
+      <option value="10274">Гродно</option>
+      <option value="10661">Гусь-Хрустальный</option>
+      <option value="972">Дзержинск</option>
+      <option value="10723">Дмитров</option>
+      <option value="10725">Домодедово</option>
+      <option value="65">Екатеринбург</option>
+      <option value="11123">Елабуга</option>
+      <option value="11057">Ессентуки</option>
+      <option value="10993">Ейск</option>
+      <option value="10343">Житомир</option>
+      <option value="11125">Зеленодольск</option>
+      <option value="10687">Ивановская область</option>
+      <option value="10345">Ивано-Франковск</option>
+      <option value="11043">Каменск-Шахтинский</option>
+      <option value="10693">Калужская область</option>
+      <option value="11020">Карачаево-Черкесская Республика</option>
+      <option value="10933">Республика Карелия</option>
+      <option value="10313">Кишинев</option>
+      <option value="11071">Кирово-Чепецк</option>
+      <option value="11070">Кировская область</option>
+      <option value="11062">Кисловодск</option>
+      <option value="10733">Клин</option>
+      <option value="10664">Ковров</option>
+      <option value="10734">Коломна</option>
+      <option value="10939">Республика Коми</option>
+      <option value="10699">Костромская область</option>
+      <option value="10735">Красногорск</option>
+      <option value="35">Краснодар</option>
+      <option value="10347">Кривой Рог</option>
+      <option value="977">Крым</option>
+      <option value="978">Крым (другие города)</option>
+      <option value="979">Крым (универсальное)</option>
+      <option value="10705">Курская область</option>
+      <option value="10712">Липецкая область</option>
+      <option value="10738">Люберцы</option>
+      <option value="235">Магнитогорск</option>
+      <option value="10366">Мариуполь</option>
+      <option value="11077">Республика Марий Эл</option>
+      <option value="10367">Мелитополь</option>
+      <option value="11063">Минеральные Воды</option>
+      <option value="213">Москва</option>
+      <option value="10668">Муром</option>
+      <option value="10740">Мытищи</option>
+      <option value="236">Набережные Челны</option>
+      <option value="974">Находка</option>
+      <option value="11064">Невинномысск</option>
+      <option value="11114">Нефтекамск</option>
+      <option value="66">Нижний Новгород</option>
+      <option value="11079">Нижегородская область</option>
+      <option value="10742">Ногинск</option>
+      <option value="54">Новосибирск</option>
+      <option value="237">Новокузнецк</option>
+      <option value="970">Новороссийск</option>
+      <option value="238">Новочеркасск</option>
+      <option value="967">Обнинск</option>
+      <option value="10743">Одинцово</option>
+      <option value="78">Омск</option>
+      <option value="11084">Оренбургская область</option>
+      <option value="10745">Орехово-Зуево</option>
+      <option value="11091">Орск</option>
+      <option value="50">Пермь</option>
+      <option value="10746">Павловский Посад</option>
+      <option value="11095">Пензенская область</option>
+      <option value="11108">Пермский край</option>
+      <option value="10747">Подольск</option>
+      <option value="964">Полтава</option>
+      <option value="10748">Пушкино</option>
+      <option value="11067">Пятигорск</option>
+      <option value="10750">Раменское</option>
+      <option value="11111">Республика Башкортостан</option>
+      <option value="11012">Республика Ингушетия</option>
+      <option value="11013">Республика Кабардино-Балкария</option>
+      <option value="11015">Республика Калмыкия</option>
+      <option value="11117">Республика Мордовия</option>
+      <option value="11021">Республика Северная Осетия-Алания</option>
+      <option value="10355">Ровно</option>
+      <option value="11029">Ростовская область</option>
+      <option value="114">Ростов-на-Дону</option>
+      <option value="11115">Салават</option>
+      <option value="99">Самара</option>
+      <option value="2">Санкт-Петербург</option>
+      <option value="194">Саратов</option>
+      <option value="11083">Саров</option>
+      <option value="10752">Сергиев Посад</option>
+      <option value="10754">Серпухов</option>
+      <option value="10755">Солнечногорск</option>
+      <option value="11110">Соликамск</option>
+      <option value="10937">Сортавала</option>
+      <option value="239">Сочи</option>
+      <option value="10649">Старый Оскол</option>
+      <option value="11069">Ставропольский край</option>
+      <option value="11116">Стерлитамак</option>
+      <option value="10671">Суздаль</option>
+      <option value="965">Сумы</option>
+      <option value="973">Сургут</option>
+      <option value="10303">Талдыкорган</option>
+      <option value="971">Таганрог</option>
+      <option value="11119">Татарстан</option>
+      <option value="10357">Тернополь</option>
+      <option value="10317">Тирасполь</option>
+      <option value="240">Тольятти</option>
+      <option value="10358">Ужгород</option>
+      <option value="198">Улан-Удэ</option>
+      <option value="195">Ульяновск</option>
+      <option value="10306">Усть-Каменогорск</option>
+      <option value="10945">Ухта</option>
+      <option value="962">Херсон</option>
+      <option value="77">Челябинск</option>
+      <option value="11024">Чеченская Республика</option>
+      <option value="10363">Черкассы</option>
+      <option value="966">Чернигов</option>
+      <option value="10365">Черновцы</option>
+      <option value="968">Череповец</option>
+      <option value="10251">Чукотский автономный округ</option>
+      <option value="11053">Шахты</option>
+     </select>
+    </div>
    </div>
-   <div class="column">
-    <p class="fontSizeMsg">ChatGPT:</p>
-    <button id="chatgpt" class="sizeButton"></button> 
-   </div>
-   <div class="column">
-    <p class="fontSizeMsg">Обои:</p>
-    <input id="fileInput" type="file" accept="image/*">
-    <img id="import" class="icons" src="image/import.webp">
-    <img id="export" class="icons" src="image/export.webp">
-    <img id="delete" class="icons" src="image/delete.webp">
-    <img id="random" class="icons" src="image/random.webp">
-   </div>
-   <div class="column">
-    <p class="fontSizeMsg">Погода:</p>
-    <select id="optionsWeather" class="sizeButton">
-     <option value="">Выключена</option>
-     <option value="11004">Республика Адыгея</option>
-     <option value="10656">Александров</option>
-     <option value="11121">Альметьевск</option>
-     <option value="10987">Армавир</option>
-     <option value="11080">Арзамас</option>
-     <option value="10946">Астраханская область</option>
-     <option value="197">Барнаул</option>
-     <option value="10716">Балашиха</option>
-     <option value="10645">Белгородская область</option>
-     <option value="10369">Белая Церковь</option>
-     <option value="10314">Бельцы</option>
-     <option value="10315">Бендеры</option>
-     <option value="975">Бийск</option>
-     <option value="11122">Бугульма</option>
-     <option value="976">Братск</option>
-     <option value="191">Брянск</option>
-     <option value="10650">Брянская область</option>
-     <option value="10951">Волжский</option>
-     <option value="10950">Волгоградская область</option>
-     <option value="11036">Волгодонск</option>
-     <option value="963">Винница</option>
-     <option value="10719">Видное</option>
-     <option value="33">Владикавказ</option>
-     <option value="192">Владимир</option>
-     <option value="10658">Владимирская область</option>
-     <option value="193">Воронеж</option>
-     <option value="10672">Воронежская область</option>
-     <option value="969">Выборг</option>
-     <option value="10990">Геленджик</option>
-     <option value="10274">Гродно</option>
-     <option value="10661">Гусь-Хрустальный</option>
-     <option value="972">Дзержинск</option>
-     <option value="10723">Дмитров</option>
-     <option value="10725">Домодедово</option>
-     <option value="65">Екатеринбург</option>
-     <option value="11123">Елабуга</option>
-     <option value="11057">Ессентуки</option>
-     <option value="10993">Ейск</option>
-     <option value="10343">Житомир</option>
-     <option value="11125">Зеленодольск</option>
-     <option value="10687">Ивановская область</option>
-     <option value="10345">Ивано-Франковск</option>
-     <option value="11043">Каменск-Шахтинский</option>
-     <option value="10693">Калужская область</option>
-     <option value="11020">Карачаево-Черкесская Республика</option>
-     <option value="10933">Республика Карелия</option>
-     <option value="10313">Кишинев</option>
-     <option value="11071">Кирово-Чепецк</option>
-     <option value="11070">Кировская область</option>
-     <option value="11062">Кисловодск</option>
-     <option value="10733">Клин</option>
-     <option value="10664">Ковров</option>
-     <option value="10734">Коломна</option>
-     <option value="10939">Республика Коми</option>
-     <option value="10699">Костромская область</option>
-     <option value="10735">Красногорск</option>
-     <option value="35">Краснодар</option>
-     <option value="10347">Кривой Рог</option>
-     <option value="977">Крым</option>
-     <option value="978">Крым (другие города)</option>
-     <option value="979">Крым (универсальное)</option>
-     <option value="10705">Курская область</option>
-     <option value="10712">Липецкая область</option>
-     <option value="10738">Люберцы</option>
-     <option value="235">Магнитогорск</option>
-     <option value="10366">Мариуполь</option>
-     <option value="11077">Республика Марий Эл</option>
-     <option value="10367">Мелитополь</option>
-     <option value="11063">Минеральные Воды</option>
-     <option value="213">Москва</option>
-     <option value="10668">Муром</option>
-     <option value="10740">Мытищи</option>
-     <option value="236">Набережные Челны</option>
-     <option value="974">Находка</option>
-     <option value="11064">Невинномысск</option>
-     <option value="11114">Нефтекамск</option>
-     <option value="66">Нижний Новгород</option>
-     <option value="11079">Нижегородская область</option>
-     <option value="10742">Ногинск</option>
-     <option value="54">Новосибирск</option>
-     <option value="237">Новокузнецк</option>
-     <option value="970">Новороссийск</option>
-     <option value="238">Новочеркасск</option>
-     <option value="967">Обнинск</option>
-     <option value="10743">Одинцово</option>
-     <option value="78">Омск</option>
-     <option value="11084">Оренбургская область</option>
-     <option value="10745">Орехово-Зуево</option>
-     <option value="11091">Орск</option>
-     <option value="50">Пермь</option>
-     <option value="10746">Павловский Посад</option>
-     <option value="11095">Пензенская область</option>
-     <option value="11108">Пермский край</option>
-     <option value="10747">Подольск</option>
-     <option value="964">Полтава</option>
-     <option value="10748">Пушкино</option>
-     <option value="11067">Пятигорск</option>
-     <option value="10750">Раменское</option>
-     <option value="11111">Республика Башкортостан</option>
-     <option value="11012">Республика Ингушетия</option>
-     <option value="11013">Республика Кабардино-Балкария</option>
-     <option value="11015">Республика Калмыкия</option>
-     <option value="11117">Республика Мордовия</option>
-     <option value="11021">Республика Северная Осетия-Алания</option>
-     <option value="10355">Ровно</option>
-     <option value="11029">Ростовская область</option>
-     <option value="114">Ростов-на-Дону</option>
-     <option value="11115">Салават</option>
-     <option value="99">Самара</option>
-     <option value="2">Санкт-Петербург</option>
-     <option value="194">Саратов</option>
-     <option value="11083">Саров</option>
-     <option value="10752">Сергиев Посад</option>
-     <option value="10754">Серпухов</option>
-     <option value="10755">Солнечногорск</option>
-     <option value="11110">Соликамск</option>
-     <option value="10937">Сортавала</option>
-     <option value="239">Сочи</option>
-     <option value="10649">Старый Оскол</option>
-     <option value="11069">Ставропольский край</option>
-     <option value="11116">Стерлитамак</option>
-     <option value="10671">Суздаль</option>
-     <option value="965">Сумы</option>
-     <option value="973">Сургут</option>
-     <option value="10303">Талдыкорган</option>
-     <option value="971">Таганрог</option>
-     <option value="11119">Татарстан</option>
-     <option value="10357">Тернополь</option>
-     <option value="10317">Тирасполь</option>
-     <option value="240">Тольятти</option>
-     <option value="10358">Ужгород</option>
-     <option value="198">Улан-Удэ</option>
-     <option value="195">Ульяновск</option>
-     <option value="10306">Усть-Каменогорск</option>
-     <option value="10945">Ухта</option>
-     <option value="962">Херсон</option>
-     <option value="77">Челябинск</option>
-     <option value="11024">Чеченская Республика</option>
-     <option value="10363">Черкассы</option>
-     <option value="966">Чернигов</option>
-     <option value="10365">Черновцы</option>
-     <option value="968">Череповец</option>
-     <option value="10251">Чукотский автономный округ</option>
-     <option value="11053">Шахты</option>
-    </select>
-   </div>
-  </div>
- </dialog>
- <a href="https://chatgpt.com/">
-  <img id="imgc" src="image/chatgpt.webp">
- </a>
- <img id="weather">
- <script src="Design.js"></script>
- <script src="Index.js"></script>
-</body>
+  </dialog>
+  <a href="https://chatgpt.com/">
+   <img id="imgc" src="image/chatgpt.webp">
+  </a>
+  <img id="weather">
+  <script src="Design.js"></script>
+  <script src="Index.js"></script>
+ </body>
 </html>
