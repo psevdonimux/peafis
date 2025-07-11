@@ -1,4 +1,4 @@
-![](image/icon.webp)
+![](images/icon.webp)
 # Peafis - Поисковик будущего
 **p** - practical (практичный)
 
