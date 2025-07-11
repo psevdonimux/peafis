@@ -1,0 +1,33 @@
+@media(orientation:portrait){
+ #settings{
+  width: 20vw;
+  height: 4vh;
+  font-size: 1.2vh;
+  border-radius: 40px;
+  top: 0;
+  left: 0;
+ }
+ #one{
+  margin-bottom: -8.4vh;
+  width: 20vw;
+  height: 7vh;
+ }
+ #imgc{
+  height: 10vh;
+  aspect-ratio: 1 / 1;
+ }
+ #searching{
+  width: 80vw;
+  height: 5vh;
+  font-size: 2vh;
+ }
+ #weather{
+  filter: var(--invert-status);
+  height: 17vh;
+  width: 24vw;
+  clip-path: inset(3.8vh 0px 4.6vh 0px);
+  mix-blend-mode: var(--mix-blend-mode);
+  margin-top: -3.8vh;
+  margin-bottom: -4.6vh;
+ }
+}

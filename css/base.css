@@ -1,0 +1,62 @@
+:root{
+ --border-width: 1px;
+}
+@media(orientation:portrait){
+ :root{
+  --input-border-width: 10px;
+ }
+}
+@media(orientation:landscape){
+ :root{
+  --input-border-width: 5px;
+ }
+}
+[data-theme='light']{
+ --bg-color: white;
+ --text-color: black;
+ --border-color: black;
+ --invert-status: none;
+ --invert-status-image: invert(1);
+ --mix-blend-mode: multiply;
+}
+[data-theme='dark']{
+ --bg-color: black;
+ --text-color: white;
+ --border-color: white;
+ --invert-status: invert(1) hue-rotate(190deg) brightness(300%) contrast(1000%);
+ --invert-status-image: none;
+ --mix-blend-mode: screen;
+}
+@font-face{
+ font-family: 'Lato Semi Bold';
+ src: url('../fonts/Lato-Semibold.ttf');
+ font-weight: normal;
+ font-style: normal;
+ font-display: swap;
+}
+.main-elements{
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-direction: column;
+ min-height: 95vh;
+ position: relative;
+}
+body, p, button, dialog, select{
+ background-color: var(--bg-color);
+ color: var(--text-color);
+ font-family: 'Lato Semi Bold';
+}
+button, select{
+ border-color: var(--border-color);
+ border-width: var(--border-width);
+ border-style: solid;
+}
+#searching{
+ border-color: var(--border-color);
+ border-width: var(--input-border-width);
+ border-style: solid;
+}
+select{
+ text-align: center;
+}

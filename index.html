@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="ru">
+ <head>
+  <title>Peafis - Поисковик будущего</title>
+  <meta name="viewport" content="user-scalable=no">
+  <link rel="icon" href="images/icon.ico">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/linkTags.css">
+  <!-- landscape -->
+  <link rel="stylesheet" href="css/landscape/main-screen.css">
+  <link rel="stylesheet" href="css/landscape/settings-modal.css">  
+  <!-- portrait -->
+  <link rel="stylesheet" href="css/portrait/main-screen.css">
+  <link rel="stylesheet" href="css/portrait/settings-modal.css">  
+  <script src="metrika.js"></script>
+ </head>
+ <body>  
+  <dialog id="modalSettings">
+   <div class="column">    
+    <h1 id="title">Настройки</h1>
+    <span id="close">×</span>
+   </div>
+   <div id="test">
+    <div class="column">
+     <p id="msg" class="fontSizeMsg">Прозрачность кнопок</p>     
+    </div>
+    <input type="range" id="transparent" min="0" max="10">
+    <div class="column">
+     <p class="fontSizeMsg">Тема</p>
+     <button id="mode" class="sizeButton"></button>
+    </div>
+    <div class="column">
+     <p class="fontSizeMsg">Поисковик</p>
+     <select id="optionsMenu" class="sizeButton">
+      <option value="https://yandex.eu/search/touch/?text=">Yandex</option>
+      <option value="https://www.google.com/search?q=">Google</option>
+      <option value="https://www.bing.com/search?q=">Bing</option>
+      <option value="https://duckduckgo.com/?q=">DuckDuckGo</option>
+     </select>
+    </div>
+    <div class="column">
+     <p class="fontSizeMsg">ChatGPT</p>
+     <button id="chatgpt" class="sizeButton"></button>
+    </div>
+    <div class="column">
+     <p class="fontSizeMsg">Обои</p>
+     <input id="fileInput" type="file" accept="image/*">
+     <div id="icons-elements">
+      <img id="import" class="icons" src="images/import.webp" alt="import">
+      <img id="export" class="icons" src="images/export.webp" alt="export">
+      <img id="delete" class="icons" src="images/delete.webp" alt="delete">
+      <img id="random" class="icons" src="images/random.webp" alt="random">
+     </div>
+    </div>
+    <div class="column">
+     <p class="fontSizeMsg">Погода</p>
+     <select id="optionsWeather" class="sizeButton"></select>
+    </div>
+   </div>
+  </dialog>
+  <div class="main-elements"> 
+   <button id="settings">Настройки</button>
+   <button id="one">ТЫК</button>
+   <img id="weather" alt="weather">
+   <form onsubmit="search(event,this.searching.value);">
+    <input name="searching" id="searching">
+   </form>
+   <a href="https://chatgpt.com/">
+    <img id="imgc" src="images/chatgpt.webp" alt="chatgpt">
+   </a>
+  </div> 
+  <script src="js/index.js"></script>
+  <script src="js/linkTags.js"></script>
+ </body>
+</html>
