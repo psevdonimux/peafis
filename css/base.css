@@ -55,8 +55,10 @@ button, select{
 #searching{
  border-color: var(--border-color);
  border-width: var(--input-border-width);
+ color: var(--text-color);
  border-style: solid;
 }
 select{
  text-align: center;
 }
+
