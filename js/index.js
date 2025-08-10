@@ -95,7 +95,7 @@ class SimpleApp {
     };   
     this.elements.forms.onsubmit = (event) => {
       event.preventDefault();
-      this.search(event, event.searching.value);
+      this.search(event, event.target.searching.value);
     };
     this.elements.mode.onclick = () => {
      this.toggleTheme();
