@@ -8,7 +8,7 @@ class SimpleApp {
   getElements() {
     const ids = ['export', 'random', 'close', 'modalSettings', 'settings', 
                 'weather', 'delete', 'one', 'transparent', 'optionsWeather', 
-                'optionsMenu', 'chatgpt', 'imgc', 'mode', 'fileInput', 'import'];
+                'optionsMenu', 'chatgpt', 'imgc', 'mode', 'fileInput', 'import', 'forms'];
     return Object.fromEntries(ids.map(id => [id, document.getElementById(id)]));
   } 
   storage(key, value = undefined) {
@@ -93,6 +93,10 @@ class SimpleApp {
       this.storage('weatherId', e.target.value);
       this.updateWeather();
     };   
+    this.elements.forms.onsubmit = (event) => {
+      event.preventDefault();
+      this.search(event, event.searching.value);
+    };
     this.elements.mode.onclick = () => {
      this.toggleTheme();
      this.updateTheme();
