@@ -9,40 +9,40 @@ darkOverlay.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; heig
 document.body.appendChild(darkOverlay);
 const saveLabels = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(labels.map(({ dataset: d }) => ({ xVw: +d.xVw, yVh: +d.yVh, text: d.text, link: d.link }))));
 const createLabel = (x, y, text, link, xVw = null, yVh = null) => {
- const l = document.createElement('div');
- l.className = 'label';
- l.textContent = text;
- xVw = xVw ?? x / window.innerWidth * 100;
- yVh = yVh ?? y / window.innerHeight * 100;
- l.style.cssText = `left: ${xVw}vw; top: ${yVh}vh;`;
- Object.assign(l.dataset, { link, xVw, yVh, text });
- let touchStartTime = 0, touchTimer = null;
- const stop = (e) => {
-	e.preventDefault();
-	e.stopPropagation();
- };
-l.ontouchstart = (e) => {
-	touchStartTime = Date.now();
-	touchTimer = setTimeout(() => showActionOptions(l), 250);
-	stop(e);
- };
-l.ontouchend = (e) => {
-	clearTimeout(touchTimer);
-	if(Date.now() - touchStartTime < 250) navigateToLink(l);
-	stop(e);
-};
-l.ontouchmove = (e) => { 
-	clearTimeout(touchTimer);
-	stop(e);
-};
-l.onclick = () => navigateToLink(l);
-l.oncontextmenu = (e) => {
-	e.preventDefault();
-	showActionOptions(l);
-	return false;
-};
-document.body.appendChild(l);
-return l;
+	const l = document.createElement('div');
+	l.className = 'label';
+	l.textContent = text;
+	xVw = xVw ?? x / window.innerWidth * 100;
+	yVh = yVh ?? y / window.innerHeight * 100;
+	l.style.cssText = `left: ${xVw}vw; top: ${yVh}vh;`;
+	Object.assign(l.dataset, { link, xVw, yVh, text });
+	let touchStartTime = 0, touchTimer = null;
+	const stop = (e) => {
+		e.preventDefault();
+		e.stopPropagation();
+	};
+	l.ontouchstart = (e) => {
+		touchStartTime = Date.now();
+		touchTimer = setTimeout(() => showActionOptions(l), 250);
+		stop(e);
+	};
+	l.ontouchend = (e) => {
+		clearTimeout(touchTimer);
+		if(Date.now() - touchStartTime < 250) navigateToLink(l);
+		stop(e);
+	};
+	l.ontouchmove = (e) => { 
+		clearTimeout(touchTimer);
+		stop(e);
+	};
+	l.onclick = () => navigateToLink(l);
+	l.oncontextmenu = (e) => {
+		e.preventDefault();
+		showActionOptions(l);
+		return false;
+	};
+	document.body.appendChild(l);
+	return l;
 };
 const navigateToLink = (l) => {
 	const info = JSON.parse(localStorage.getItem('info') || 'null');
@@ -53,14 +53,15 @@ const showActionOptions = (l) => {
 	c.className = 'delete-confirm';
 	c.innerHTML = `<p>Действия с меткой:</p><p>"${l.textContent}"</p><div class="button-container"><button class="confirm-edit">Редактировать</button><button class="confirm-yes">Удалить</button><button class="confirm-no">Отмена</button></div>`;
 	c.querySelector('.confirm-yes').onclick = () => {
-	labels = labels.filter(item => item !== l);
-	l.remove();
-	saveLabels();
-	c.remove();
-};
-c.querySelector('.confirm-no').onclick = () => c.remove();
-c.querySelector('.confirm-edit').onclick = () => { 
-	c.remove(); showEditForm(l); };
+		labels = labels.filter(item => item !== l);
+		l.remove();
+		saveLabels();
+		c.remove();
+	};
+	c.querySelector('.confirm-no').onclick = () => c.remove();
+	c.querySelector('.confirm-edit').onclick = () => { 
+		c.remove(); showEditForm(l); 
+	};
 	document.body.appendChild(c);
 };
 const showEditForm = (l) => {
@@ -68,18 +69,18 @@ const showEditForm = (l) => {
 	f.className = 'edit-form';
 	f.innerHTML = `<h3>Редактирование метки</h3><div class="input-group"><label for="edit-text">Текст:</label><input type="text" id="edit-text" value="${l.dataset.text}"></div><div class="input-group"><label for="edit-link">Ссылка:</label><input type="text" id="edit-link" value="${l.dataset.link}"></div><div class="button-container"><button class="save-button">Сохранить</button><button class="cancel-button">Отмена</button></div>`;
 	f.querySelector('.save-button').onclick = () => {
- 	const newText = f.querySelector('#edit-text').value;
- 	const newLink = f.querySelector('#edit-link').value;
-	if(newText && newLink){
-		l.textContent = l.dataset.text = newText;
- 		l.dataset.link = newLink;
- 		saveLabels();
- 		f.remove();
-	}
-	else alert('Текст и ссылка не могут быть пустыми!');
-};
-f.querySelector('.cancel-button').onclick = () => f.remove();
-document.body.appendChild(f);
+		const newText = f.querySelector('#edit-text').value;
+		const newLink = f.querySelector('#edit-link').value;
+		if(newText && newLink){
+			l.textContent = l.dataset.text = newText;
+			l.dataset.link = newLink;
+			saveLabels();
+			f.remove();
+		}
+		else alert('Текст и ссылка не могут быть пустыми!');
+	};
+	f.querySelector('.cancel-button').onclick = () => f.remove();
+	document.body.appendChild(f);
 };
 const toggleDarkMode = () => {
 	isDarkened = !isDarkened;
@@ -98,15 +99,16 @@ const handleLongTouch = (e) => {
 	const text = prompt('Введите текст для метки:', '');
 	if(!text) return;
 	const info = JSON.parse(localStorage.getItem('info') || 'null');
-	if(info && info[text] && confirm(`Найдена ссылка для "${text}": ${info[text]}\nИспользовать эту ссылку?`)){
-		labels.push(createLabel(touch.pageX, touch.pageY, text, info[text]));
+	if(info && info[text] && confirm(`Найдена ссылка для "${text}": ${info[text]}
+Использовать эту ссылку?`)){
+		labels.push(createLabel(touch.clientX, touch.clientY, text, info[text]));
 		saveLabels();
 		alert('Метка создана!');
 		return;
 	}
 	const link = prompt('Введите ссылку для этой метки:', '');
 	if(link){
-		labels.push(createLabel(touch.pageX, touch.pageY, text, link));
+		labels.push(createLabel(touch.clientX, touch.clientY, text, link));
 		saveLabels();
 		alert('Метка создана!');
 	}
@@ -116,7 +118,8 @@ const createLabelAtMouse = () => {
 	const text = prompt('Введите текст для метки:', '');
 	if(!text) return;
 	const info = JSON.parse(localStorage.getItem('info') || 'null');
-	if(info && info[text] && confirm(`Найдена ссылка для "${text}": ${info[text]}\nИспользовать эту ссылку?`)){
+	if(info && info[text] && confirm(`Найдена ссылка для "${text}": ${info[text]}
+Использовать эту ссылку?`)){
 		labels.push(createLabel(mouseX, mouseY, text, info[text]));
 		saveLabels();
 		alert('Метка создана!');
@@ -130,11 +133,11 @@ const createLabelAtMouse = () => {
 	}
 };
 document.onmousemove = (e) => {
- mouseX = e.clientX;
- mouseY = e.clientY;
+	mouseX = e.clientX;
+	mouseY = e.clientY;
 };
 document.onmousedown = (e) => {
-	if(event.button === 1){
+	if(e.button === 1){
 		toggleDarkMode();
 	}
 	if(!isDarkened || e.target.classList.contains('label') || e.target.closest('.delete-confirm, .edit-form')) return;
@@ -148,10 +151,11 @@ document.onmouseup = () => {
 	clearTimeout(longPressTimer);
 };
 document.ontouchstart = (e) => {
-	if(e.touches.length === 2 && !elements.modalSettings.open){
+	if(e.touches.length === 2){
 		toggleDarkMode();
 		lastTapTime = Date.now();
 	}
 	if(isDarkened && e.touches.length === 1) longTouchTimer = setTimeout(() => handleLongTouch(e), 250);
 };
 document.ontouchend = () => clearTimeout(longTouchTimer);
+document.ontouchmove = () => clearTimeout(longTouchTimer);
