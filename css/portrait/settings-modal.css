@@ -1,44 +1,44 @@
 @media(orientation:portrait){
- #test{
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  margin-top: 0;
- }
- #modalSettings{
-  width: 68vw;
-  height: 40vh;
-  border-radius: 40px;
- }
- .fontSizeMsg{
-  font-size: 2vh;
- }
- .sizeButton{
-  width: 14vw;
-  height: 3.1vh;
-  font-size: 1.3vh;
-  border-radius: 40px;
-  margin-left: 0.9vw;
- }
- #title{
-  font-size: 3vh;
-  margin-left: 18vw;
- }
- #transparent{
-  transform: scale(2);
-  width: 22vw;
-  margin-left: 12vw;
- }
- #close{
-  font-size: 4vh;
-  right: 2vw;
-  top: 1vh;
- }
- .icons{
-  height: 3vh;
- }
- #icons-elements{
-  display: flex;
-  gap: 40px;
- }
+	#test{
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+		margin-top: 0;
+	}
+	#modalSettings{
+		width: 68vw;
+		height: 40vh;
+		border-radius: 40px;
+	}
+	.fontSizeMsg{
+		font-size: 2vh;
+	}
+	.sizeButton{
+		width: 14vw;
+		height: 3.1vh;
+		font-size: 1.2vh;
+		border-radius: 40px;
+		margin-left: 0.9vw;
+	}
+	#title{
+		font-size: 3vh;
+		margin-left: 18vw;
+	}
+	#transparent{
+		transform: scale(2);
+		width: 22vw;
+		margin-left: 12vw;
+	}
+	#close{
+		font-size: 4vh;
+		right: 2vw;
+		top: 1vh;
+	}
+	.icons{
+		height: 3vh;
+	}
+	#icons-elements{
+		display: flex;
+		gap: 40px;
+	}
 }

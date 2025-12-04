@@ -1,38 +1,28 @@
 #one{
- margin-bottom: -8vw;
- width: 30vh;
- height: 7.6vw;
- opacity: 0;
- z-index: 1;
+	width: 30vh;
+	height: 7.6vw;
+	top: 10vw;
 }
 #searching{
- width: 111vh;
- height: 5.5vw;
- font-size: 2vw;
- border-radius: 50px;
- background-color: transparent;
+	width: 111vh;
+	height: 5.5vw;
+	font-size: 2vw;
+	border-radius: 3vw;
+	top: 18vw;
 }
 #settings{
- position: absolute;
- top: 0;
- left: 0;
- border-radius: 20px;
- width: 20vh;
- height: 4vw;
- font-size: 1.2vw;
+	width: 20vh;
+	height: 4vw;
+	font-size: 1.2vw;
+	border-radius: 5vw;
 }
 #imgc{
- filter: var(--invert-status-image);
- height: 10vw;
- aspect-ratio: 1 / 1;
- border-radius: 100%;
+	top: 26vw;	
+	height: 10vw;
 }
-#weather{
- filter: var(--invert-status);
- clip-path: inset(3.8vw 0px 4.6vw 0px);
- height: 16.5vw;
- width: 23.5vh;
- mix-blend-mode: var(--mix-blend-mode);
- margin-top: -3.8vw;
- margin-bottom: -4.6vw;
+#weather{	
+	clip-path: inset(3.8vw 0px 4.6vw 0px);
+	height: 16.5vw;
+	width: 23.5vh;
+	margin-bottom: 12vw;
 }

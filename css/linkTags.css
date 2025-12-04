@@ -1,87 +1,87 @@
 //the code is not optimized
 #dark-overlay{
- position: fixed;
- top: 0;
- left: 0;
- width: 100%;
- height: 100%;
- z-index: 9998;
- display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9998;
+	display: none;
 }
 .label{
- position: fixed;
- font-size: 7.5vmin; 
- color: white;
- font-weight: bold;
- z-index: 9999;
- cursor: pointer;
- transform: translate(-50%, -50%);
+	position: fixed;
+	font-size: 7.5vmin; 
+	color: white;
+	font-weight: bold;
+	z-index: 9999;
+	cursor: pointer;
+	transform: translate(-50%, -50%);
 }
 .delete-confirm, .edit-form{
- position: fixed;
- top: 50%;
- left: 50%;
- transform: translate(-50%, -50%) scale(2);
- background-color: rgba(60, 60, 60, 0.9);
- border: 2px solid #fff;
- border-radius: 10px;
- padding: 20px;
- color: white;
- z-index: 10000;
- text-align: center;
- width: 80vmin;
- max-width: 300px;
- max-height: 90vh;
- overflow-y: auto;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(2);
+	background-color: rgba(60, 60, 60, 0.9);
+	border: 2px solid #fff;
+	border-radius: 10px;
+	padding: 20px;
+	color: white;
+	z-index: 10000;
+	text-align: center;
+ 	width: 80vmin;
+	max-width: 300px;
+	max-height: 90vh;
+	overflow-y: auto;
 }
 .delete-confirm button, .edit-form button{
- margin: 5px;
- padding: 8px 15px;
- border: none;
- border-radius: 5px;
- font-size: 16px;
- cursor: pointer;
+	margin: 5px;
+	padding: 8px 15px;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
 }
 .delete-confirm button{
- white-space: nowrap;
+	white-space: nowrap;
 }
 .button-container{
- display: flex;
- flex-wrap: wrap;
- justify-content: center;
- gap: 5px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 5px;
 }
 .confirm-yes{
- background-color: #f44;
- color: white;
+	background-color: #f44;
+	color: white;
 }
 .confirm-no, .cancel-button{
- background-color: #444;
- color: white;
+	background-color: #444;
+	color: white;
 }
 .confirm-edit{
- background-color: #48f;
- color: white;
+	background-color: #48f;
+	color: white;
 }
 .save-button{
- background-color: #4f4;
- color: white;
+	background-color: #4f4;
+	color: white;
 }
 .edit-form input{
- width: 100%;
- padding: 8px;
- margin: 5px 0;
- border-radius: 5px;
- border: 1px solid #ddd;
- font-size: 14px;
- box-sizing: border-box;
+	width: 100%;
+	padding: 8px;
+	margin: 5px 0;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	font-size: 14px;
+	box-sizing: border-box;
 }
 .input-group{
- margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 @media(orientation: landscape){
- .delete-confirm, .edit-form{
-  max-width: 60vw;
-  transform: translate(-50%, -50%) scale(1.5);
- }
+	.delete-confirm, .edit-form{
+		max-width: 60vw;
+		transform: translate(-50%, -50%) scale(1.5);
+	}
 }

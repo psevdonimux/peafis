@@ -1,64 +1,98 @@
 :root{
- --border-width: 1px;
-}
-@media(orientation:portrait){
- :root{
-  --input-border-width: 10px;
- }
-}
-@media(orientation:landscape){
- :root{
-  --input-border-width: 5px;
- }
-}
-[data-theme='light']{
- --bg-color: white;
- --text-color: black;
- --border-color: black;
- --invert-status: none;
- --invert-status-image: invert(1);
- --mix-blend-mode: multiply;
-}
-[data-theme='dark']{
- --bg-color: black;
- --text-color: white;
- --border-color: white;
- --invert-status: invert(1) hue-rotate(190deg) brightness(300%) contrast(1000%);
- --invert-status-image: none;
- --mix-blend-mode: screen;
-}
-@font-face{
- font-family: 'Lato Semi Bold';
- src: url('../fonts/Lato-Semibold.ttf');
- font-weight: normal;
- font-style: normal;
- font-display: swap;
-}
-.main-elements{
- display: flex;
- align-items: center;
- justify-content: center;
- flex-direction: column;
- min-height: 95vh;
- position: relative;
-}
-body, p, button, dialog, select{
- background-color: var(--bg-color);
- color: var(--text-color);
- font-family: 'Lato Semi Bold';
-}
-button, select{
- border-color: var(--border-color);
- border-width: var(--border-width);
- border-style: solid;
-}
-#searching{
- border-color: var(--border-color);
- border-width: var(--input-border-width);
- color: var(--text-color);
- border-style: solid;
-}
-select{
- text-align: center;
+	--border-width: 1px;
 }
 
+@media(orientation:portrait){
+	:root{
+		--input-border-width: 10px;
+	}
+}
+
+@media(orientation:landscape){
+	:root{
+		--input-border-width: 5px;
+	}
+}
+
+[data-theme='light']{
+	--bg-color: white;
+	--text-color: black;
+	--border-color: black;
+	--invert-status: none;
+	--invert-status-image: invert(1);
+	--mix-blend-mode: multiply;
+}
+[data-theme='dark']{
+	--bg-color: black;
+	--text-color: white;
+	--border-color: white;
+	--invert-status: invert(1) hue-rotate(190deg) brightness(300%) contrast(1000%);
+	--invert-status-image: none;
+	--mix-blend-mode: screen;
+}
+@font-face{
+	font-family: 'Lato Semi Bold';
+	src: url('../fonts/Lato-Semibold.ttf');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+.main-elements{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	min-height: 95vh;
+	position: relative;
+}
+body, p, button, dialog, select{
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	font-family: 'Lato Semi Bold';
+}
+button, select{
+	border-color: var(--border-color);
+	border-width: var(--border-width);
+	border-style: solid;
+}
+#searching{
+	border-color: var(--border-color);
+	border-width: var(--input-border-width);
+	color: var(--text-color);
+	border-style: solid;
+}
+select{
+	text-align: center;
+}
+#weather{
+	filter: var(--invert-status);
+	mix-blend-mode: var(--mix-blend-mode);
+}
+#forms{
+	display: flex;
+	justify-content: center;
+}
+#imgc{
+	position: absolute;
+	filter: var(--invert-status-image);
+	aspect-ratio: 1 / 1;
+	border-radius: 100%;
+}
+#imgca{
+	display: flex;
+	justify-content: center;
+}
+#settings{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+#searching{
+	position: absolute;	
+	background-color: transparent;
+}
+#one{
+    position: absolute;
+	z-index: 1;	
+	opacity: 0;
+}
