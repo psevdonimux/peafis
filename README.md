@@ -48,7 +48,7 @@
 
 | Телефон | ПК |
 |:-------:|:--:|
-| ![Телефон](video/mobile-demo.webm) | ![ПК](video/desktop-demo.webm) |
+| ![Телефон](video/mobile-demo.mp4) | ![ПК](video/desktop-demo.mp4) |
 
 ## Командная строка (ТЫК)
 
