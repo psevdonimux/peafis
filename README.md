@@ -27,11 +27,11 @@
 
 | Меню |
 |------|
-| ![Меню](screenshots/menu.webp) |
+| ![](screenshots/menu.webp) |
 
 | Настройки |
 |------|
-| ![Настройки](screenshots/settings.webp) |
+| ![](screenshots/settings.webp) |
 
 ## Скрытые метки
 
