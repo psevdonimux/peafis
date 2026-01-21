@@ -27,11 +27,11 @@
 
 | Меню |
 |------|
-| ![](screenshots/men7u.webp) |
+| ![](screenshots/menu.webp) |
 
 | Настройки |
 |------|
-| ![](screenshots/settin7gs.webp) |
+| ![](screenshots/settings.webp) |
 
 ## Скрытые метки
 
