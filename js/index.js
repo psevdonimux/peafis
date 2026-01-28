@@ -10,7 +10,7 @@ class SimpleApp{
 	getElements(){
 		const ids = ['export', 'random', 'close', 'modalSettings', 'settings',
 								'weather', 'delete', 'one', 'transparent', 'optionsWeather',
-								'optionsMenu', 'chatgpt', 'imgc', 'mode', 'fileInput', 'import', 'forms'];
+								'optionsMenu', 'claude', 'imgc', 'imgca', 'mode', 'fileInput', 'import', 'forms'];
 		return Object.fromEntries(ids.map(id => [id, document.getElementById(id)]));
 	}
 
@@ -69,9 +69,9 @@ class SimpleApp{
 		}
 	}
 
-	updateChatGPT(){
-		this.elements.chatgpt.innerHTML = this.storage('chatgpt') === 'true' ? 'Включён' : 'Отключён';
-		this.elements.imgc.style.cssText = this.storage('chatgpt') === 'true' ? '' : 'transform: scale(0)';
+	updateClaude(){
+		this.elements.claude.innerHTML = this.storage('claude') === 'true' ? 'Включён' : 'Отключён';
+		this.elements.imgc.style.cssText = this.storage('claude') === 'true' ? '' : 'transform: scale(0)';
 	}
 
 	updateWeather(){
@@ -96,12 +96,13 @@ class SimpleApp{
 		this.elements.optionsMenu.value = this.storage('search') || 'https://www.google.com/search?q=';
 		this.loadWeatherOptions();
 		this.loadImage();
-		this.updateChatGPT();
+		this.updateClaude();
 		this.updateTheme();
 		this.updateWeather();
 	}
 
 	bindEvents(){
+		this.elements.imgca.onclick = () => location.replace('https://public-' + (Math.floor(Math.random() * 12) + 1) + '.claude.wendabao-b.net/new');
 		this.elements.optionsMenu.onchange = (e) => this.storage('search', e.target.value);
 		this.elements.optionsWeather.onchange = (e) => {
 			this.storage('weatherId', e.target.value);
@@ -133,10 +134,10 @@ class SimpleApp{
 			this.storage('transparent', value);
 			this.setOpacities(['settings', 'imgc'], value);
 		};
-		this.elements.chatgpt.onclick = () => {
-			const current = this.storage('chatgpt') === 'true';
-			this.storage('chatgpt', current ? 'false' : 'true');
-			this.updateChatGPT();
+		this.elements.claude.onclick = () => {
+			const current = this.storage('claude') === 'true';
+			this.storage('claude', current ? 'false' : 'true');
+			this.updateClaude();
 		};
 		this.elements.fileInput.onchange = (e) => {
 			const reader = new FileReader();
@@ -152,7 +153,7 @@ class SimpleApp{
 		};
 		this.elements.random.onclick = () => {
 			const img = new Image();
-			img.src = 'https://picsum.photos/1000?random=' + Date.now();
+			img.src = 'https://picsum.photos/1000?random=a';
 			img.crossOrigin = 'Anonymous';
 			img.onload = () => {
 				const canvas = document.createElement('canvas');
