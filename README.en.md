@@ -1,3 +1,5 @@
+[Русский](README.md) | [English](README.en.md)
+
 ![](images/icon.webp)
 # Peafis - Search Engine of the Future
 
